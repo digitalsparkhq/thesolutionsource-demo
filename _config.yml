@@ -1,4 +1,77 @@
-baseurl: "/thesolutionsource-demo"
-url: "https://digitalsparkhq.github.io"
+# =====================================================
+#   The Solution SOURCE - Jekyll Configuration
+# =====================================================
+
 title: "The Solution SOURCE"
 description: "The Solution SOURCE."
+url: "https://digitalsparkhq.github.io"   # main domain (GitHub Pages base)
+baseurl: "/thesolutionsource-demo"        # repository name
+
+# -----------------------------------------------------
+#   Author / Site Info
+# -----------------------------------------------------
+author: "The Solution SOURCE Team"
+email: "info@thesolutionsource.com"
+location: "Greensboro, North Carolina, USA"
+
+# -----------------------------------------------------
+#   Build Settings
+# -----------------------------------------------------
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Optional for smoother URL structure (no .html)
+permalink: pretty
+
+# Set timezone (useful for posts or future updates)
+timezone: America/New_York
+
+# Include / Exclude paths
+include:
+  - _pages
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - .sass-cache/
+  - .jekyll-cache/
+  - package.json
+  - package-lock.json
+
+# -----------------------------------------------------
+#   Plugins (GitHub Pages supports these)
+# -----------------------------------------------------
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# -----------------------------------------------------
+#   Defaults for Pages
+# -----------------------------------------------------
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      hero_height: "hero-sm"
+
+# -----------------------------------------------------
+#   Collections (for later expansion)
+# -----------------------------------------------------
+# collections:
+#   reflections:
+#     output: true
+#     permalink: /reflections/:title/
+
+# -----------------------------------------------------
+#   Social Links (optional future use)
+# -----------------------------------------------------
+social_links:
+  linkedin: "https://linkedin.com"
+  instagram: "https://instagram.com"
+  facebook: "https://facebook.com"
