@@ -1,15 +1,18 @@
-<footer class="bg-dark text-light text-center py-4 mt-5">
-  <div class="container">
-    <p class="mb-1">&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
-    <div class="social-links">
-      <a href="#" class="text-light me-3">LinkedIn</a>
-      <a href="#" class="text-light me-3">Instagram</a>
-      <a href="#" class="text-light">Facebook</a>
-    </div>
-  </div>
-</footer>
+  </main>
 
-<!-- Bootstrap Bundle (with Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  <footer class="bg-light text-center py-4 mt-5">
+    <p class="mb-1">&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All Rights Reserved.</p>
+    <div>
+      <a href="{{ site.social_links.linkedin }}" class="text-dark me-3">LinkedIn</a>
+      <a href="{{ site.social_links.instagram }}" class="text-dark me-3">Instagram</a>
+      <a href="{{ site.social_links.facebook }}" class="text-dark">Facebook</a>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (via CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
+</html>
