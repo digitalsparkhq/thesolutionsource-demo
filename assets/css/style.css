@@ -1,0 +1,75 @@
+/* ===================================
+   Global Styles - The Solution Source
+   =================================== */
+
+/* Fonts (optional, you can link Google Fonts in <head> if preferred) */
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+  margin-top: 70px; /* offset for fixed navbar */
+  background-color: #F6F3EE;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: #004E45;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  color: #fff;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.hero-lg {
+  height: 80vh;
+}
+.hero-sm {
+  height: 40vh;
+}
+.hero .overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar */
+.navbar-brand {
+  font-weight: 700;
+  color: #004E45 !important;
+}
+.nav-link {
+  font-weight: 500;
+  color: #333 !important;
+}
+.nav-link:hover {
+  color: #004E45 !important;
+}
+
+/* Sections */
+section {
+  scroll-margin-top: 70px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #004E45;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #006c62;
+}
+
+/* Footer */
+footer {
+  font-size: 0.9rem;
+}
+
+/* Custom utilities */
+.bg-beige {
+  background-color: #F6F3EE;
+}
+.text-green {
+  color: #004E45;
+}
