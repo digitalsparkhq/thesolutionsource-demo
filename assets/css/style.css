@@ -7,7 +7,6 @@
   --text: #222;
   --bg: #F6F3EE;
 
-  /* approximate topbar height used to offset navbar */
   --topbar-height: 56px;
 }
 
@@ -19,8 +18,8 @@ body {
   margin: 0;
   padding: 0;
   background: var(--bg);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ---------- Topbar ---------- */
@@ -61,28 +60,20 @@ body {
 .topbar .topbar-right a.social:hover { color: var(--primary); }
 
 /* ---------- Navbar ---------- */
-/* keep the original .navbar-sticky name you used */
 .navbar-sticky {
   background: var(--primary);
   color: #fff;
   position: sticky;
-  top: var(--topbar-height); /* sits below topbar until scrolled */
+  top: var(--topbar-height);
   z-index: 1050;
   transition: top .28s ease, background .2s ease;
 }
 
 /* when page scrolled we pull navbar to top (via JS toggling .scrolled) */
-.navbar-sticky.scrolled {
-  top: 0;
-}
+.navbar-sticky.scrolled { top: 0; }
 
-/* center the menu on desktop */
-.navbar-sticky .navbar-nav {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  align-items: center;
-}
+/* desktop nav - left aligned with topbar logo */
+.navbar-sticky .navbar-nav { display: flex; align-items: center; margin-left: 0; }
 
 /* nav links */
 .navbar-sticky .nav-link {
@@ -91,8 +82,6 @@ body {
   font-weight: 600;
   position: relative;
 }
-
-/* underline animation for hover + active/current */
 .navbar-sticky .nav-link::after {
   content: "";
   position: absolute;
@@ -105,11 +94,9 @@ body {
   transition: width .28s ease;
 }
 .navbar-sticky .nav-link:hover::after,
-.navbar-sticky .nav-link.current::after {
-  width: 100%;
-}
+.navbar-sticky .nav-link.current::after { width: 100%; }
 
-/* call box on desktop (keeps at right side) */
+/* call box on desktop */
 .call-box {
   background: rgba(255,255,255,0.95);
   color: var(--primary);
@@ -122,7 +109,7 @@ body {
 }
 .call-box:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
 
-/* mobile call button (keeps visible on right) */
+/* mobile call button */
 .call-btn {
   background: var(--primary);
   color: #fff;
@@ -131,295 +118,105 @@ body {
   border-radius: 6px;
 }
 
-/* make sure anchor jumps don't hide content under sticky nav */
+/* prevent sticky nav overlap on anchors */
 section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
 
 /* ---------- Hero ---------- */
-/* hero sizes are controlled via classes on the header element:
-   .hero.hero-lg (home) => full viewport
-   .hero.hero-sm (about/contact) => 80vh
-*/
-.hero {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color: #fff;
-  text-align: center;
-}
-.hero.hero-lg { min-height: 100vh; height: 100vh; }
-.hero.hero-sm { min-height: 80vh; height: 80vh; }
-
-/* remove dark overlay by default (you requested no black background on text).
-   If you want overlay only on home, add inline overlay or a specific .has-overlay class. */
-.hero-overlay {
-  position: relative;
-  z-index: 1;
-  padding: 4rem 0;
-}
-.hero-title { color: #fff; font-size: clamp(2rem, 4vw, 3.6rem); font-weight:700; text-shadow: 0 2px 10px rgba(0,0,0,0.25); }
-.hero-subtext { color: #fff; max-width:900px; margin:0 auto; }
-
+.hero { position: relative; background-size: cover; background-position: center; display:flex; align-items:center; justify-content:center; color:#fff; text-align:center; }
+.hero.hero-lg { min-height:100vh; height:100vh; }
+.hero.hero-sm { min-height:80vh; height:80vh; }
 .hero-text-bg {
-  display: inline-block; /* shrink to content */
-  background-color: rgba(0, 0, 0, 0.5); /* black transparent */
-  padding: 1rem 2rem; /* adjust spacing around text */
-  border-radius: 0.5rem; /* optional rounded corners */
-}
-
-/* ---------- Intro / Mission ---------- */
-/* pattern/background MUST be set inline in HTML (so Jekyll relative_url works).
-   Keep section spacing and styles here only. */
-#intro { padding: 5rem 0; }
-
-/* ---------- Section heading style (centered underline across middle) ---------- */
-.section-title {
   display: inline-block;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-  position: relative;
-  color: var(--primary);
-  text-align: center;
-}
-.section-title::after {
-  content: "";
-  display: block;
-  width: 40%;
-  max-width: 320px;
-  height: 4px;
-  margin: 8px auto 0;
-  background: var(--primary);
-  border-radius: 2px;
+  background-color: rgba(0,0,0,0.5);
+  padding:1rem 2rem;
+  border-radius:0.5rem;
 }
 
-/* ---------- Services ---------- */
-#services { background: var(--cream); padding: 4rem 0; }
-.service-card { background: #fff; border-radius: 12px; padding: 1.8rem; min-height: 240px; box-shadow: 0 6px 20px rgba(10,10,10,0.04);
-  transform: translateY(12px); opacity:0; transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .6s;}
-.service-card.visible { transform: translateY(0); opacity:1; }
-.service-card h5 { color: var(--green); margin-bottom:.8rem; }
-
-/* ---------- Reflections Section ---------- */
-#reflections {
-  padding: 3.5rem 0;
-  overflow-x: hidden; /* prevent horizontal scroll on all devices */
-}
-
-#reflections .row {
-  row-gap: 2rem;
-}
-
-/* reflection card container */
-.reflection-card {
-  perspective: 1200px;
-  height: 40vh;
-  display: flex;
-  align-items: stretch;
-  overflow: hidden; /* contain any 3D overflow */
-}
-
-/* inner wrapper handles flipping */
-.reflection-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.3, 1);
-  transform-style: preserve-3d;
-}
-
-.reflection-card.flipped .reflection-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* front & back faces */
-.reflection-front,
-.reflection-back {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  backface-visibility: hidden;
-  border-radius: 14px;
-  padding: 1.5rem;
+/* ---------- Mobile overlay nav ---------- */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
   background: #fff;
-  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.06);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1060;
+  padding: 4rem 1.5rem 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: opacity 0.4s ease;
 }
-
-.reflection-back {
-  transform: rotateY(180deg);
+.mobile-nav-overlay.open {
+  transform: translateY(0);
+  opacity: 1;
 }
-
-/* card headings */
-.reflection-card h5 {
-  text-align: center;
-  color: var(--green);
-  margin-bottom: 1rem;
+.mobile-nav-overlay .nav-link {
+  color: #222;
   font-weight: 600;
+  padding: 0.8rem 0;
 }
+.mobile-nav-overlay .nav-link:hover { color: var(--primary); }
 
-/* text content */
-.reflection-card p {
-  flex-grow: 1;
-  text-align: justify;
+/* ---------- Reflections / Services ---------- */
+.service-card { background: #fff; border-radius: 12px; padding: 1.8rem; min-height: 240px; box-shadow: 0 6px 20px rgba(10,10,10,0.04); transform: translateY(12px); opacity:0; transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .6s; }
+.service-card.visible { transform: translateY(0); opacity:1; }
+.service-card h5 { color: var(--green); margin-bottom:.8rem; }
+.reflection-card { perspective: 1200px; height: 40vh; display: flex; align-items: stretch; overflow: hidden; }
+.reflection-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.3, 1); transform-style: preserve-3d; }
+.reflection-card.flipped .reflection-card-inner { transform: rotateY(180deg); }
+.reflection-front, .reflection-back {
+  position: absolute; inset: 0; width: 100%; backface-visibility: hidden;
+  border-radius: 14px; padding: 1.5rem; background: #fff;
+  box-shadow: 0 8px 24px rgba(10,10,10,0.06);
+  display: flex; flex-direction: column; justify-content: space-between; transition: opacity 0.4s ease;
 }
-
-/* flip buttons */
-.flip-btn {
-  margin-top: 1rem;
-  display: inline-block;
-  align-self: center;
-}
-
-/* ---------- Responsive Adjustments ---------- */
-@media (max-width: 991px) {
-  #reflections {
-    padding: 2.5rem 0;
-  }
-
-  #reflections .row {
-    row-gap: 1.2rem !important;
-  }
-
-  .reflection-card {
-    height: 380px;
-    overflow: hidden; /* prevents card overflow */
-  }
-
-  .reflection-card-inner {
-    height: 100%;
-  }
-
-  /* maintain 3D flip but prevent overflow */
-  .reflection-front,
-  .reflection-back {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-  }
-
-  .reflection-back {
-    transform: rotateY(180deg);
-  }
-
-  /* subtle depth effect */
-  .reflection-card-inner::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
-    transform: translateZ(-1px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .reflection-card.flipped .reflection-card-inner::after {
-    opacity: 0.25;
-  }
-}
-
-@media (max-width: 575px) {
-  .reflection-card {
-    height: 360px;
-  }
-
-  .reflection-card h5 {
-    font-size: 1.05rem;
-  }
-
-  .reflection-card p {
-    font-size: 0.9rem;
-  }
-
-  /* ensure no horizontal scroll at all */
-  body, html {
-    overflow-x: hidden;
-  }
-}
+.reflection-back { transform: rotateY(180deg); }
+.reflection-card h5 { text-align: center; color: var(--green); margin-bottom: 1rem; font-weight: 600; }
+.reflection-card p { flex-grow: 1; text-align: justify; }
+.flip-btn { margin-top: 1rem; display: inline-block; align-self: center; }
 
 /* ---------- Reveal on scroll ---------- */
 .reveal-on-scroll { transform: translateY(18px); opacity: 0; transition: all .7s ease; }
 .reveal-on-scroll.visible { transform: translateY(0); opacity: 1; }
 
-/* ---- Reviews slider helpers ---- */
+/* ---------- Reviews slider ---------- */
 #reviews { position: relative; padding: 4rem 0; color: #fff; }
 .review-container { position: relative; width:100%; max-width:900px; margin: 0 auto; min-height: 160px; overflow: hidden; }
-
-/* Slide base */
-.review-slide {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  opacity: 0;
-  transform: translateX(100%);    /* default off-screen right */
-  transition: transform .6s ease, opacity .6s ease;
-  text-align: center;
-  z-index: 1;
-}
-
-/* visible slide */
-.review-slide.active {
-  opacity: 1;
-  transform: translateX(0);
-  z-index: 3;
-}
-
-/* arrows must be above slides */
-.review-arrow {
-  background: rgba(0,0,0,0.35);
-  color: #fff;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  position: relative;
-}
+.review-slide { position:absolute; left:0; top:0; width:100%; opacity:0; transform: translateX(100%); transition: transform .6s ease, opacity .6s ease; text-align:center; z-index:1; }
+.review-slide.active { opacity:1; transform:translateX(0); z-index:3; }
+.review-arrow { background: rgba(0,0,0,0.35); color:#fff; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; cursor:pointer; z-index:10; position:relative; }
 .review-arrow:hover { transform: translateY(-3px); }
 
-/* ensure container doesn't change height when slides change */
-.review-container .review-slide p { margin-bottom: 0; }
-
 /* ---------- Footer ---------- */
-.site-footer { color: #333; background: #fff; padding-top: 2rem; }
-.site-footer .footer-top .col { padding-bottom: 0.5rem; }
-.footer-separator { border-top: 2px solid var(--primary); margin: 1.25rem 0; opacity:.9; }
-
-/* smaller text row */
+.site-footer { color:#333; background:#fff; padding-top:2rem; }
+.site-footer .footer-top .col { padding-bottom:0.5rem; }
+.footer-separator { border-top: 2px solid var(--primary); margin:1.25rem 0; opacity:.9; }
 .site-footer .footer-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-bottom:1rem; flex-wrap:wrap; }
-
-/* social */
 .site-footer a.social { color: var(--text); transition: color .18s ease; }
 .site-footer a.social:hover { color: var(--primary); }
-
-/* ---------- Contact form wrapper ---------- */
-.contact-form-wrapper { max-width: 640px; margin: 0 auto; }
+.contact-form-wrapper { max-width:640px; margin:0 auto; }
 
 /* ---------- Responsive tweaks ---------- */
 @media (max-width: 991px) {
-  /* center nav on mobile, collapse will be full width below topbar */
-  .navbar-sticky .navbar-nav { margin: 0; flex-direction: column; }
-  /* position collapsed menu below topbar and navbar */
-  #mainNav .collapse { position: absolute; left: 0; right: 0; top: calc(var(--topbar-height)); background: var(--primary); padding: 1rem 0; z-index: 1045; }
-  #mainNav .nav-link { color: #fff; padding-left: 1.2rem; }
-  /* ensure call button stays visible on the right */
-  .call-btn { position: absolute; right: 12px; top: 10px; z-index: 1065; }
-  .topbar { padding: 0 12px; height: var(--topbar-height); }
-  .section-title::after { width: 60%; }
-  .review-container { min-height: 200px; }
+  .navbar-sticky .navbar-nav { margin:0; flex-direction: column; }
+  #mainNav .collapse { position:absolute; left:0; right:0; top: calc(var(--topbar-height)); background: #fff; padding: 1rem 0; z-index: 1045; }
+  #mainNav .nav-link { color:#222; padding-left:1.2rem; }
+  .call-btn { position:absolute; right:12px; top:10px; z-index:1065; }
+  .topbar { padding:0 12px; height: var(--topbar-height); }
+  .section-title::after { width:60%; }
+  .review-container { min-height:200px; }
   .site-footer .footer-top { text-align:center; }
   .site-footer .row { display:flex; flex-direction:column; align-items:center; text-align:center; }
   .site-footer .footer-bottom { justify-content:center; }
+}
+
+@media (max-width: 575px) {
+  .reflection-card { height:360px; }
+  .reflection-card h5 { font-size:1.05rem; }
+  .reflection-card p { font-size:0.9rem; }
+  body, html { overflow-x:hidden; }
 }
 
 /* fine tune focus outlines */
