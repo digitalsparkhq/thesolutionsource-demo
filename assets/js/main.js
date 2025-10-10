@@ -60,44 +60,45 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 // ----- Reviews Slider -----
-document.addEventListener("DOMContentLoaded", () => {
-  const slides = document.querySelectorAll(".review-slide");
-  const next = document.getElementById("reviewNext");
-  const prev = document.getElementById("reviewPrev");
-  let index = 0;
-  let autoSlide;
+const slides = document.querySelectorAll(".review-slide");
+const next = document.getElementById("reviewNext");
+const prev = document.getElementById("reviewPrev");
+let index = 0;
+let autoSlide;
 
-  function showSlide(newIndex, direction = "right") {
-    if (newIndex === index) return;
-    slides[index].classList.remove("active");
-    slides[index].classList.add(direction === "right" ? "exit-left" : "exit-right");
-    slides[newIndex].classList.add("active");
+function showSlide(newIndex, direction = "right") {
+  if (newIndex === index) return;
 
-    setTimeout(() => {
-      slides.forEach(s => s.classList.remove("exit-left", "exit-right"));
-    }, 700);
+  slides[index].style.transform = direction === "right" ? "translateX(-100%)" : "translateX(100%)";
+  slides[index].style.opacity = "0";
+  slides[newIndex].style.transform = "translateX(0)";
+  slides[newIndex].style.opacity = "1";
 
-    index = newIndex;
-  }
+  slides[index].classList.remove("active");
+  slides[newIndex].classList.add("active");
 
-  function nextSlide() {
-    const newIndex = (index + 1) % slides.length;
-    showSlide(newIndex, "right");
-  }
+  index = newIndex;
+}
 
-  function prevSlide() {
-    const newIndex = (index - 1 + slides.length) % slides.length;
-    showSlide(newIndex, "left");
-  }
+function nextSlide() {
+  const newIndex = (index + 1) % slides.length;
+  showSlide(newIndex, "right");
+}
 
-  function startAutoSlide() {
-    autoSlide = setInterval(nextSlide, 5000);
-  }
+function prevSlide() {
+  const newIndex = (index - 1 + slides.length) % slides.length;
+  showSlide(newIndex, "left");
+}
 
-  function stopAutoSlide() {
-    clearInterval(autoSlide);
-  }
+function startAutoSlide() {
+  autoSlide = setInterval(nextSlide, 5000);
+}
 
+function stopAutoSlide() {
+  clearInterval(autoSlide);
+}
+
+if (next && prev && slides.length > 1) {
   next.addEventListener("click", () => {
     stopAutoSlide();
     nextSlide();
@@ -111,8 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   startAutoSlide();
-});
-
+}
   // ---------- contact modal + AJAX form ----------
   const contactModalEl = document.getElementById('contactModal');
   if (contactModalEl) {
