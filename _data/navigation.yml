@@ -1,3 +1,4 @@
+<a class="nav-link {% if page.url == item.url %}active{% endif %}" href="{{ item.url | relative_url }}">
 - title: "Home"
   url: "/#top"
 - title: "About"
