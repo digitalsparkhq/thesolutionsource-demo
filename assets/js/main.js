@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
     revealItems.forEach(el => observer.observe(el));
   }
 
-// reflection flip on Flip To Continue button
-document.querySelectorAll('.flip-btn').forEach(btn => {
+// reflection flip buttons (Flip To Continue + Back)
+document.querySelectorAll('.flip-btn, .back-btn').forEach(btn => {
   btn.addEventListener('click', function (e) {
     e.preventDefault();
     const card = this.closest('.reflection-card');
