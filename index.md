@@ -54,7 +54,7 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
 <section id="reflections" class="py-5">
   <div class="container">
     <div class="text-center">
-      <h2>Reflections</h2>
+      <h2 class="section-title text-center">Reflections</h2>
     </div>
 
     <div class="row mt-4 g-4">
