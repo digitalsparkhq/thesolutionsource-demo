@@ -59,79 +59,126 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-// ----- Reviews Slider -----
-const slides = document.querySelectorAll(".review-slide");
-const next = document.getElementById("reviewNext");
-const prev = document.getElementById("reviewPrev");
-let index = 0;
-let autoSlide;
+// ------- Robust Reviews Slider (replace older slider block) -------
+(function () {
+  const slides = Array.from(document.querySelectorAll(".review-slide"));
+  const nextBtn = document.getElementById("reviewNext");
+  const prevBtn = document.getElementById("reviewPrev");
+  const container = document.querySelector(".review-container") || document.querySelector(".flex-grow-1.px-3");
+  if (!slides.length || (!nextBtn && !prevBtn)) return;
 
-function showSlide(newIndex, direction = "right") {
-  if (newIndex === index) return;
+  let index = 0;
+  let autoSlide = null;
+  let isAnimating = false;
+  const DURATION = 600; // ms (match CSS .6s)
 
-  // Remove active class from current
-  slides[index].classList.remove("active");
+  // init - place slides offscreen (only current visible)
+  slides.forEach((s, i) => {
+    s.classList.remove("active");
+    s.style.transition = "transform .6s ease, opacity .6s ease";
+    if (i === index) {
+      s.classList.add("active");
+      s.style.transform = "translateX(0)";
+      s.style.opacity = "1";
+    } else {
+      s.style.transform = "translateX(100%)";
+      s.style.opacity = "0";
+    }
+  });
 
-  // Set the starting position for the new slide
-  slides[newIndex].style.transition = "none";
-  slides[newIndex].style.transform =
-    direction === "right" ? "translateX(100%)" : "translateX(-100%)";
-  slides[newIndex].style.opacity = "1";
+  function showSlide(newIndex, direction = "right") {
+    if (isAnimating || newIndex === index) return;
+    isAnimating = true;
 
-  // Force reflow so transition triggers
-  void slides[newIndex].offsetWidth;
+    const current = slides[index];
+    const next = slides[newIndex];
 
-  // Animate both slides
-  slides[index].style.transition = "transform 0.6s ease, opacity 0.6s ease";
-  slides[newIndex].style.transition = "transform 0.6s ease, opacity 0.6s ease";
+    // Prepare next offscreen on the correct side
+    if (direction === "right") {
+      next.style.transition = "none";
+      next.style.transform = "translateX(100%)";
+      next.style.opacity = "1";
+    } else {
+      next.style.transition = "none";
+      next.style.transform = "translateX(-100%)";
+      next.style.opacity = "1";
+    }
 
-  slides[index].style.transform =
-    direction === "right" ? "translateX(-100%)" : "translateX(100%)";
-  slides[newIndex].style.transform = "translateX(0)";
+    // Force reflow so the browser registers the starting position
+    void next.offsetWidth;
 
-  // After transition completes, hide old slide
-  setTimeout(() => {
-    slides[index].style.opacity = "0";
-    slides[index].style.transition = "none";
-  }, 600);
+    // Enable transitions
+    next.style.transition = "transform .6s ease, opacity .6s ease";
+    current.style.transition = "transform .6s ease, opacity .6s ease";
 
-  slides[newIndex].classList.add("active");
-  index = newIndex;
-}
+    // Animate: current exits, next enters
+    if (direction === "right") {
+      current.style.transform = "translateX(-100%)";
+    } else {
+      current.style.transform = "translateX(100%)";
+    }
+    current.style.opacity = "0";
 
-function nextSlide() {
-  const newIndex = (index + 1) % slides.length;
-  showSlide(newIndex, "right");
-}
+    next.style.transform = "translateX(0)";
+    next.style.opacity = "1";
 
-function prevSlide() {
-  const newIndex = (index - 1 + slides.length) % slides.length;
-  showSlide(newIndex, "left");
-}
+    // mark classes
+    current.classList.remove("active");
+    next.classList.add("active");
 
-function startAutoSlide() {
-  autoSlide = setInterval(nextSlide, 5000);
-}
+    // cleanup after transitionend (listen on 'current' transform)
+    const cleanup = (ev) => {
+      if (ev.propertyName !== "transform") return;
+      // Put the old slide offscreen right and hide it
+      current.style.transition = "none";
+      current.style.transform = "translateX(100%)";
+      current.style.opacity = "0";
+      // allow interaction again
+      isAnimating = false;
+      current.removeEventListener("transitionend", cleanup);
+    };
+    current.addEventListener("transitionend", cleanup);
 
-function stopAutoSlide() {
-  clearInterval(autoSlide);
-}
+    index = newIndex;
+  }
 
-if (next && prev && slides.length > 1) {
-  next.addEventListener("click", () => {
-    stopAutoSlide();
+  function nextSlide() {
+    const newIndex = (index + 1) % slides.length;
+    showSlide(newIndex, "right");
+  }
+  function prevSlide() {
+    const newIndex = (index - 1 + slides.length) % slides.length;
+    showSlide(newIndex, "left");
+  }
+
+  // arrows
+  nextBtn?.addEventListener("click", () => {
+    stopAuto();
     nextSlide();
-    startAutoSlide();
+    startAuto();
   });
-
-  prev.addEventListener("click", () => {
-    stopAutoSlide();
+  prevBtn?.addEventListener("click", () => {
+    stopAuto();
     prevSlide();
-    startAutoSlide();
+    startAuto();
   });
 
-  startAutoSlide();
-}
+  // auto rotate
+  function startAuto() {
+    stopAuto();
+    autoSlide = setInterval(nextSlide, 5000);
+  }
+  function stopAuto() {
+    if (autoSlide) { clearInterval(autoSlide); autoSlide = null; }
+  }
+  // pause on hover (desktop)
+  if (container) {
+    container.addEventListener("mouseenter", stopAuto);
+    container.addEventListener("mouseleave", startAuto);
+  }
+
+  startAuto();
+})();
 
   // ---------- contact modal + AJAX form ----------
   const contactModalEl = document.getElementById('contactModal');
