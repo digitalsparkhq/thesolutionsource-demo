@@ -41,29 +41,28 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- center menu (use flexbox trick) -->
+    <!-- Desktop: center menu -->
     <div class="mx-auto order-2 order-lg-1">
       <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav flex-column flex-lg-row">
           {% for item in site.data.navigation %}
           <li class="nav-item px-2">
             <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
           </li>
           {% endfor %}
+          <!-- Add Call button inside mobile menu overlay -->
+          <li class="d-lg-none mt-3">
+            <a href="tel:+1234567890" class="btn call-btn">Call Us</a>
+          </li>
         </ul>
       </div>
     </div>
 
-    <!-- Right: call box (on mobile show call button) -->
-    <div class="ms-auto order-3">
-      <div class="d-none d-lg-inline">
-        <a href="tel:+1234567890" class="call-box d-inline-flex align-items-center px-3 py-2 rounded">
-          <span class="call-number">+1 (234) 567-890</span>
-        </a>
-      </div>
-      <div class="d-lg-none">
-        <a href="tel:+1234567890" class="btn btn-sm btn-primary call-btn">Call Us</a>
-      </div>
+    <!-- Right: call box on desktop -->
+    <div class="ms-auto order-3 d-none d-lg-flex">
+      <a href="tel:+1234567890" class="call-box d-inline-flex align-items-center px-3 py-2 rounded">
+        <span class="call-number">+1 (234) 567-890</span>
+      </a>
     </div>
   </div>
 </nav>
