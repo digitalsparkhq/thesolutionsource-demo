@@ -64,17 +64,16 @@
     </div>
   </div>
 
-  <!-- Mobile overlay menu -->
-  <div id="mobileNavOverlay" class="mobile-nav-overlay d-none">
-    <ul class="navbar-nav flex-column text-start py-4 px-3">
-      {% for item in site.data.navigation %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</nav>
+<!-- Mobile overlay menu -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay">
+  <ul class="navbar-nav flex-column text-start">
+    {% for item in site.data.navigation %}
+    <li class="nav-item">
+      <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
 <!-- Hero -->
 {% if page.hero_image %}
