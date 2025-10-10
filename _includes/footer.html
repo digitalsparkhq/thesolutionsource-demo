@@ -1,8 +1,19 @@
-<footer class="bg-light text-center py-4 mt-5">
-  <p class="mb-1">&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All Rights Reserved.</p>
-  <div>
-    <a href="{{ site.social_links.linkedin }}" class="text-dark me-3">LinkedIn</a>
-    <a href="{{ site.social_links.instagram }}" class="text-dark me-3">Instagram</a>
-    <a href="{{ site.social_links.facebook }}" class="text-dark">Facebook</a>
+<!-- contact form snippet (used both inline and inside modal) -->
+<form id="ajaxContactForm" action="https://formspree.io/f/FORMSPREE_ID" method="POST" class="ajax-form">
+  <div class="mb-3">
+    <label for="cf-name" class="form-label">Name *</label>
+    <input type="text" id="cf-name" name="name" class="form-control" required>
   </div>
-</footer>
+  <div class="mb-3">
+    <label for="cf-email" class="form-label">Email *</label>
+    <input type="email" id="cf-email" name="_replyto" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="cf-message" class="form-label">Message *</label>
+    <textarea id="cf-message" name="message" rows="5" class="form-control" required></textarea>
+  </div>
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary">Send Message</button>
+  </div>
+  <div id="cf-result" class="mt-3" aria-live="polite"></div>
+</form>
