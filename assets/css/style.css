@@ -162,6 +162,13 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
 .hero-title { color: #fff; font-size: clamp(2rem, 4vw, 3.6rem); font-weight:700; text-shadow: 0 2px 10px rgba(0,0,0,0.25); }
 .hero-subtext { color: #fff; max-width:900px; margin:0 auto; }
 
+.hero-text-bg {
+  display: inline-block; /* shrink to content */
+  background-color: rgba(0, 0, 0, 0.5); /* black transparent */
+  padding: 1rem 2rem; /* adjust spacing around text */
+  border-radius: 0.5rem; /* optional rounded corners */
+}
+
 /* ---------- Intro / Mission ---------- */
 /* pattern/background MUST be set inline in HTML (so Jekyll relative_url works).
    Keep section spacing and styles here only. */
