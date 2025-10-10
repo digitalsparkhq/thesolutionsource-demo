@@ -47,17 +47,25 @@ document.addEventListener('DOMContentLoaded', function () {
     revealItems.forEach(el => observer.observe(el));
   }
 
-  // ---------- reflection flip on Read More button (click) ----------
-  document.querySelectorAll('.flip-btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      const card = this.closest('.reflection-card');
-      if (!card) return;
-      // toggle 'flipped' class (CSS handles 3d)
-      card.classList.toggle('flipped');
-      // on small devices we avoid 3d transform (CSS handles that)
-    });
+// Flip card functionality
+document.querySelectorAll('.flip-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const card = this.closest('.reflection-card');
+    if (!card) return;
+    card.classList.add('flipped');
   });
+});
+
+document.querySelectorAll('.back-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const card = this.closest('.reflection-card');
+    if (!card) return;
+    card.classList.remove('flipped');
+  });
+});
+
 
 // ------- Robust Reviews Slider (updated) -------
 (function () {
