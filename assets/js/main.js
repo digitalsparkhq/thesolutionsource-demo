@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     revealItems.forEach(el => observer.observe(el));
   }
 
-// reflection flip
+// reflection flip on Flip To Continue button
 document.querySelectorAll('.flip-btn').forEach(btn => {
   btn.addEventListener('click', function (e) {
     e.preventDefault();
