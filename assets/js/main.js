@@ -1,5 +1,3 @@
-new js file
-
 document.addEventListener('DOMContentLoaded', function () {
   const topbar = document.getElementById('topbar');
   const mainNav = document.getElementById('mainNav');
