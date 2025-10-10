@@ -1,242 +1,269 @@
-/* ---------- Color tokens ---------- */
+/* ---------- Color tokens & layout vars ---------- */
 :root {
-  --primary: rgb(69,137,204); /* brand/nav color */
+  --primary: rgb(69,137,204);
   --accent: #D4AF37;
   --green: #004E45;
   --cream: #FBF7F2;
   --text: #222;
   --bg: #F6F3EE;
+
+  /* approximate topbar height used to offset navbar */
+  --topbar-height: 56px;
 }
 
 /* ---------- Global ---------- */
+* { box-sizing: border-box; }
 body {
   font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   color: var(--text);
   margin: 0;
-  padding-top: 0;
+  padding: 0;
   background: var(--bg);
-  overflow-x: hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 /* ---------- Topbar ---------- */
 .topbar {
-  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,248,255,0.95));
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(245,250,255,0.95));
   border-bottom: 1px solid rgba(0,0,0,0.04);
   position: fixed;
-  width: 100%;
-  z-index: 1050;
-  transition: transform .35s ease, opacity .35s ease;
   top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-height);
+  z-index: 1060;
+  transition: transform .35s ease, opacity .35s ease;
+  display: flex;
+  align-items: center;
 }
-.topbar.hidden { transform: translateY(-100%); opacity: 0; }
+.topbar.hidden { transform: translateY(-120%); opacity: 0; }
 
+/* logo "heavenly" tag */
 .logo-text {
-  background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.65), transparent 20%),
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,0.65), transparent 20%),
     linear-gradient(180deg, rgba(240,248,255,0.7), rgba(200,225,255,0.25));
-  padding: 0 14px;
-  backdrop-filter: blur(2px);
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
 }
 .logo-name {
   font-weight: 700;
   color: var(--primary);
   letter-spacing: 0.3px;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
 }
-.topbar-right a.social { color: var(--text); transition: color .2s ease; }
-.topbar-right a.social:hover { color: var(--primary); }
+
+/* topbar right */
+.topbar .topbar-right { display:flex; gap:.5rem; align-items:center; }
+.topbar .topbar-right a.social { color: var(--text); transition: color .15s ease; }
+.topbar .topbar-right a.social:hover { color: var(--primary); }
 
 /* ---------- Navbar ---------- */
+/* keep the original .navbar-sticky name you used */
 .navbar-sticky {
   background: var(--primary);
   color: #fff;
   position: sticky;
-  top: 0;
-  z-index: 1049;
-}
-.navbar-sticky .nav-link {
-  color: rgba(255,255,255,0.95);
-  padding: .5rem 1rem;
-  font-weight: 600;
-}
-.navbar-sticky .nav-link:hover { text-decoration: none; color: #fff; opacity: .9; }
-.navbar-sticky .nav-link.current {
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  text-decoration-thickness: 3px;
-  color: #fff;
+  top: var(--topbar-height); /* sits below topbar until scrolled */
+  z-index: 1050;
+  transition: top .28s ease, background .2s ease;
 }
 
+/* when page scrolled we pull navbar to top (via JS toggling .scrolled) */
+.navbar-sticky.scrolled {
+  top: 0;
+}
+
+/* center the menu on desktop */
+.navbar-sticky .navbar-nav {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* nav links */
+.navbar-sticky .nav-link {
+  color: rgba(255,255,255,0.95);
+  padding: .55rem 0.9rem;
+  font-weight: 600;
+  position: relative;
+}
+
+/* underline animation for hover + active/current */
+.navbar-sticky .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  width: 0%;
+  background: #fff;
+  transition: width .28s ease;
+}
+.navbar-sticky .nav-link:hover::after,
+.navbar-sticky .nav-link.current::after {
+  width: 100%;
+}
+
+/* call box on desktop (keeps at right side) */
 .call-box {
   background: rgba(255,255,255,0.95);
   color: var(--primary);
-  border: 2px solid rgba(255,255,255,0.12);
-  transition: transform .2s ease, box-shadow .2s ease;
+  border-radius: 6px;
+  padding: .45rem .75rem;
+  display: inline-flex;
+  align-items:center;
+  gap:.5rem;
+  transition: transform .18s ease, box-shadow .18s ease;
 }
-.call-box:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.call-box:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
 
-.call-btn { background: var(--primary); color: #fff; }
+/* mobile call button (keeps visible on right) */
+.call-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+}
 
-section { scroll-margin-top: 120px; }
+/* make sure anchor jumps don't hide content under sticky nav */
+section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
 
 /* ---------- Hero ---------- */
+/* hero sizes are controlled via classes on the header element:
+   .hero.hero-lg (home) => full viewport
+   .hero.hero-sm (about/contact) => 80vh
+*/
 .hero {
-  min-height: 100vh;
+  position: relative;
   background-size: cover;
   background-position: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: #fff;
+  text-align: center;
 }
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-}
+.hero.hero-lg { min-height: 100vh; height: 100vh; }
+.hero.hero-sm { min-height: 80vh; height: 80vh; }
+
+/* remove dark overlay by default (you requested no black background on text).
+   If you want overlay only on home, add inline overlay or a specific .has-overlay class. */
 .hero-overlay {
   position: relative;
   z-index: 1;
-  padding: 6rem 0;
+  padding: 4rem 0;
 }
-.hero-title {
-  color: #fff;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.hero-subtext {
-  color: #fff;
-  max-width: 900px;
-  margin: 0 auto;
-}
+.hero-title { color: #fff; font-size: clamp(2rem, 4vw, 3.6rem); font-weight:700; text-shadow: 0 2px 10px rgba(0,0,0,0.25); }
+.hero-subtext { color: #fff; max-width:900px; margin:0 auto; }
 
-/* ---------- Intro ---------- */
-#intro {
-  background: var(--cream) url('{{ "/assets/images/pattern.png" | relative_url }}') repeat;
-  background-size: auto;
-  padding: 5rem 0;
+/* ---------- Intro / Mission ---------- */
+/* pattern/background MUST be set inline in HTML (so Jekyll relative_url works).
+   Keep section spacing and styles here only. */
+#intro { padding: 5rem 0; }
+
+/* ---------- Section heading style (centered underline across middle) ---------- */
+.section-title {
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  position: relative;
+  color: var(--primary);
+  text-align: center;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 40%;
+  max-width: 320px;
+  height: 4px;
+  margin: 8px auto 0;
+  background: var(--primary);
+  border-radius: 2px;
 }
 
 /* ---------- Services ---------- */
-#services {
-  background: var(--cream);
-  padding: 4rem 0;
-}
-#services h2 {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-#services h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: var(--primary);
-  margin-top: 8px;
-}
-.service-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.8rem;
-  min-height: 240px;
-  box-shadow: 0 6px 20px rgba(10,10,10,0.04);
-  transform: translateY(12px);
-  opacity: 0;
-  transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .6s ease;
-}
-.service-card.visible { transform: translateY(0); opacity: 1; }
-.service-card h5 { color: var(--green); margin-bottom: .8rem; }
+#services { background: var(--cream); padding: 4rem 0; }
+.service-card { background: #fff; border-radius: 12px; padding: 1.8rem; min-height: 240px; box-shadow: 0 6px 20px rgba(10,10,10,0.04);
+  transform: translateY(12px); opacity:0; transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .6s;}
+.service-card.visible { transform: translateY(0); opacity:1; }
+.service-card h5 { color: var(--green); margin-bottom:.8rem; }
 
-/* ---------- Reflections ---------- */
+/* ---------- Reflections (click-to-flip) ---------- */
 #reflections { padding: 4rem 0; }
-#reflections h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: var(--primary);
-  margin-top: 8px;
-}
-.reflection-card {
-  perspective: 1200px;
-  height: 40vh;
-}
-.reflection-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform .8s;
-  transform-style: preserve-3d;
-}
-.reflection-card:hover .reflection-card-inner,
-.reflection-card.flip .reflection-card-inner {
-  transform: rotateY(180deg);
-}
+.reflection-card { perspective: 1200px; height: 40vh; }
+.reflection-card-inner, .reflection-card-inner { position: relative; width:100%; height:100%; transition: transform .7s ease; transform-style: preserve-3d; }
+.reflection-card.flipped .reflection-card-inner { transform: rotateY(180deg); }
+/* front & back */
 .reflection-front, .reflection-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  border-radius: 12px;
-  padding: 1.2rem;
-  box-shadow: 0 8px 30px rgba(10,10,10,0.06);
-  background: #fff;
-  overflow: auto;
+  position: absolute; inset:0; backface-visibility: hidden; border-radius:12px; padding:1.2rem; background:#fff; box-shadow: 0 8px 30px rgba(10,10,10,0.06); overflow:auto;
 }
 .reflection-back { transform: rotateY(180deg); }
 
-.reveal-on-scroll {
-  transform: translateY(18px);
-  opacity: 0;
-  transition: all .7s ease;
-}
-.reveal-on-scroll.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
+/* small "Read More" button aligned */
+.flip-btn { margin-top: .9rem; }
 
-/* ---------- Reviews ---------- */
-#reviews {
-  padding: 4rem 0;
-  background: #123 url('{{ "/assets/images/reviews-bg.jpg" | relative_url }}') center/cover no-repeat;
-  color: #fff;
+/* ---------- Reveal on scroll ---------- */
+.reveal-on-scroll { transform: translateY(18px); opacity: 0; transition: all .7s ease; }
+.reveal-on-scroll.visible { transform: translateY(0); opacity: 1; }
+
+/* ---------- Reviews (stable height & slide in/out) ---------- */
+#reviews { padding: 4rem 0; color: #fff; }
+.review-container { position: relative; width:100%; max-width:900px; margin: 0 auto; min-height: 160px; /* prevents shrinking */ }
+.review-slide {
+  position: absolute;
+  left:0; top:0; width:100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform .55s ease, opacity .55s ease;
+  text-align:center;
 }
-.review-slide { display: none; text-align: center; }
-.review-slide.active { display: block; }
-.review-stars { color: gold; font-size: 1.2rem; }
-.review-arrow {
-  background: rgba(0,0,0,0.4);
-  color: #fff;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform .2s ease;
-}
+.review-slide.active { opacity: 1; transform: translateX(0); }
+.review-stars { color: gold; font-size:1.15rem; margin-bottom:.5rem; }
+
+/* review arrows */
+.review-arrow { background: rgba(0,0,0,0.35); color:#fff; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; cursor:pointer; }
 .review-arrow:hover { transform: translateY(-3px); }
 
 /* ---------- Footer ---------- */
-.site-footer {
-  color: #333;
-  background: #fff;
-  padding-top: 2rem;
-}
-.footer-divider {
-  border-top: 1px solid rgba(0,0,0,0.06);
-  margin: 1.5rem 0;
-}
-.social { color: var(--text); transition: color .2s ease; }
-.social:hover { color: var(--primary); }
+.site-footer { color: #333; background: #fff; padding-top: 2rem; }
+.site-footer .footer-top .col { padding-bottom: 0.5rem; }
+.footer-separator { border-top: 2px solid var(--primary); margin: 1.25rem 0; opacity:.9; }
 
-/* ---------- Responsive ---------- */
+/* smaller text row */
+.site-footer .footer-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-bottom:1rem; flex-wrap:wrap; }
+
+/* social */
+.site-footer a.social { color: var(--text); transition: color .18s ease; }
+.site-footer a.social:hover { color: var(--primary); }
+
+/* ---------- Contact form wrapper ---------- */
+.contact-form-wrapper { max-width: 640px; margin: 0 auto; }
+
+/* ---------- Responsive tweaks ---------- */
 @media (max-width: 991px) {
-  .navbar-sticky .nav-link { padding: .4rem .6rem; font-size: .95rem; }
-  .hero-overlay { padding: 4rem 1rem; }
-  .topbar { padding: .25rem 0; }
+  /* center nav on mobile, collapse will be full width below topbar */
+  .navbar-sticky .navbar-nav { margin: 0; flex-direction: column; }
+  /* position collapsed menu below topbar and navbar */
+  #mainNav .collapse { position: absolute; left: 0; right: 0; top: calc(var(--topbar-height)); background: var(--primary); padding: 1rem 0; z-index: 1045; }
+  #mainNav .nav-link { color: #fff; padding-left: 1.2rem; }
+  /* ensure call button stays visible on the right */
+  .call-btn { position: absolute; right: 12px; top: 10px; z-index: 1065; }
+  .topbar { padding: 0 12px; height: var(--topbar-height); }
+  .section-title::after { width: 60%; }
+  .reflection-card { height: auto; min-height: 360px; } /* allow scrollable content on small devices */
+  .reflection-front, .reflection-back { height: auto; position: relative; transform: none; backface-visibility: visible; }
+  .reflection-card.flipped .reflection-card-inner { transform: none; } /* disable 3d on small devices for performance */
+  .review-container { min-height: 200px; }
+  .site-footer .footer-top { text-align:center; }
+  .site-footer .row { display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .site-footer .footer-bottom { justify-content:center; }
 }
 
-a, button { outline-offset: 3px; }
+/* fine tune focus outlines */
+a:focus, button:focus { outline: 3px solid rgba(69,137,204,0.12); outline-offset: 3px; border-radius: 6px; }
