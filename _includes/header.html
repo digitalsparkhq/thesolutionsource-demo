@@ -66,22 +66,24 @@
     </div>
   </div>
 
-  <!-- Mobile overlay menu -->
-  <div id="mobileNavOverlay" class="mobile-nav-overlay">
-    <ul class="navbar-nav flex-column text-start py-4 px-3">
-      {% for item in site.data.navigation %}
-      <li class="nav-item">
-        <a class="nav-link {% if page.url == item.url or page.url == item.url | append: "/" %}current{% endif %}" href="{{ item.url | relative_url }}">
-          {{ item.title }}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+<!-- Mobile overlay menu -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay">
+  <ul class="navbar-nav flex-column text-start py-4 px-3">
+    {% for item in site.data.navigation %}
+    <li class="nav-item">
+      <a class="nav-link {% if page.url == item.url or page.url == item.url | append: '/' or page.url == item.url | remove: '/' %}current{% endif %}" href="{{ item.url | relative_url }}">
+        {{ item.title }}
+      </a>
+    </li>
+    {% endfor %}
 
-    <!-- Close button at bottom -->
-    <button class="close-btn" aria-label="Close menu">&times; Close</button>
-  </div>
-</nav>
+    <!-- Close button as part of menu -->
+    <li class="nav-item text-center mt-4">
+      <button class="close-btn" aria-label="Close menu">&times; Close</button>
+    </li>
+  </ul>
+</div>
+
 
 <!-- Hero -->
 {% if page.hero_image %}
