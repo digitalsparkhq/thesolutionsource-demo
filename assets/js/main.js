@@ -47,22 +47,36 @@ document.addEventListener('DOMContentLoaded', function () {
     revealItems.forEach(el => observer.observe(el));
   }
 
-// Flip card functionality
+// Flip for desktop
 document.querySelectorAll('.flip-btn').forEach(btn => {
-  btn.addEventListener('click', function(e) {
+  btn.addEventListener('click', e => {
     e.preventDefault();
-    const card = this.closest('.reflection-card');
+    const card = btn.closest('.reflection-card');
     if (!card) return;
-    card.classList.add('flipped');
+
+    if (window.innerWidth > 991) {
+      card.classList.add('flipped');
+    } else {
+      // mobile toggle visibility
+      card.classList.remove('front-visible');
+      card.classList.add('back-visible');
+    }
   });
 });
 
 document.querySelectorAll('.back-btn').forEach(btn => {
-  btn.addEventListener('click', function(e) {
+  btn.addEventListener('click', e => {
     e.preventDefault();
-    const card = this.closest('.reflection-card');
+    const card = btn.closest('.reflection-card');
     if (!card) return;
-    card.classList.remove('flipped');
+
+    if (window.innerWidth > 991) {
+      card.classList.remove('flipped');
+    } else {
+      // mobile toggle visibility
+      card.classList.remove('back-visible');
+      card.classList.add('front-visible');
+    }
   });
 });
 
