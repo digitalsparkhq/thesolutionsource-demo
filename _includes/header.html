@@ -41,19 +41,17 @@
     </button>
 
     <!-- Desktop nav menu: left-aligned -->
-<div class="d-none d-lg-flex">
-  <ul class="navbar-nav align-items-center">
-    {% for item in site.data.navigation %}
-    {% assign page_url = page.url | append: '/' %}
-    {% assign item_url = item.url | relative_url | append: '/' %}
-    <li class="nav-item px-2">
-      <a class="nav-link {% if page_url == item_url %}current{% endif %}" href="{{ item.url | relative_url }}">
+<ul class="navbar-nav flex-column text-start py-4 px-3">
+  {% for item in site.data.navigation %}
+    {% assign page_url_norm = page.url | relative_url | replace: '//','/' | remove: 'index.html' %}
+    {% assign item_url_norm = item.url | relative_url | replace: '//','/' | remove: 'index.html' %}
+    <li class="nav-item">
+      <a class="nav-link {% if page_url_norm == item_url_norm %}current{% endif %}" href="{{ item.url | relative_url }}">
         {{ item.title }}
       </a>
     </li>
-    {% endfor %}
-  </ul>
-</div>
+  {% endfor %}
+</ul>
 
     <!-- Right: call box -->
     <div class="ms-auto">
