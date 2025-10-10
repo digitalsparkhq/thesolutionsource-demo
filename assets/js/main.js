@@ -69,24 +69,33 @@ let autoSlide;
 function showSlide(newIndex, direction = "right") {
   if (newIndex === index) return;
 
-  // Current slide exits left if moving right, or right if moving left
-  slides[index].style.transform = direction === "right" ? "translateX(-100%)" : "translateX(100%)";
-  slides[index].style.opacity = "0";
+  // Remove active class from current
+  slides[index].classList.remove("active");
 
-  // Prepare next slide: start off-screen opposite direction
-  slides[newIndex].style.transform = direction === "right" ? "translateX(100%)" : "translateX(-100%)";
-  slides[newIndex].style.opacity = "0";
-
-  // Force reflow for transition to apply
-  void slides[newIndex].offsetWidth;
-
-  // Animate next slide into view
-  slides[newIndex].style.transform = "translateX(0)";
+  // Set the starting position for the new slide
+  slides[newIndex].style.transition = "none";
+  slides[newIndex].style.transform =
+    direction === "right" ? "translateX(100%)" : "translateX(-100%)";
   slides[newIndex].style.opacity = "1";
 
-  slides[index].classList.remove("active");
-  slides[newIndex].classList.add("active");
+  // Force reflow so transition triggers
+  void slides[newIndex].offsetWidth;
 
+  // Animate both slides
+  slides[index].style.transition = "transform 0.6s ease, opacity 0.6s ease";
+  slides[newIndex].style.transition = "transform 0.6s ease, opacity 0.6s ease";
+
+  slides[index].style.transform =
+    direction === "right" ? "translateX(-100%)" : "translateX(100%)";
+  slides[newIndex].style.transform = "translateX(0)";
+
+  // After transition completes, hide old slide
+  setTimeout(() => {
+    slides[index].style.opacity = "0";
+    slides[index].style.transition = "none";
+  }, 600);
+
+  slides[newIndex].classList.add("active");
   index = newIndex;
 }
 
