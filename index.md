@@ -58,16 +58,19 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
     </div>
 
     <div class="row mt-4 g-4">
+
       <div class="col-md-6">
         <div class="reflection-card">
           <div class="reflection-card-inner">
             <div class="reflection-front">
               <h5>Losing Momentum</h5>
               <p>Many founders begin with excitement and vision, then discover momentum fading after the first several months. The struggle is real — distractions, fear, and lies about identity can quietly erode progress. This reflection explores practical spiritual disciplines and truth declarations that restore endurance and clarity, helping founders reclaim small wins and move forward with resilience.</p>
+              <button class="btn btn-sm btn-outline-primary flip-btn">Flip To Continue</button>
             </div>
             <div class="reflection-back">
               <h5>More on Losing Momentum</h5>
               <p>When momentum fades, we focus on small, faithful practices: regular rhythms of prayer and rest, honest community checkpoints, and measurable micro-goals. In the long seasons, choose truth over lies and small wins over dramatic leaps. Persistence + truth = harvest in due season.</p>
+              <button class="btn btn-sm btn-outline-primary flip-btn">Back</button>
             </div>
           </div>
         </div>
@@ -79,14 +82,17 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
             <div class="reflection-front">
               <h5>The Tension of Waiting</h5>
               <p>Waiting is rarely passive. It's a sacred refining process where dependence grows and unnecessary things are stripped away. In this reflection we talk about practices that turn waiting into formation — how to use stillness and faithful small steps to prepare heart and strategy for the next open door.</p>
+              <button class="btn btn-sm btn-outline-primary flip-btn">Flip To Continue</button>
             </div>
             <div class="reflection-back">
               <h5>More on Waiting</h5>
               <p>Use the waiting season to clarify values and align priorities. Build routines that create confidence without pressure. Wait with eyes open: prepare, learn, and steward what God has given until the timing becomes clear.</p>
+              <button class="btn btn-sm btn-outline-primary flip-btn">Back</button>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
