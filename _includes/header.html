@@ -1,13 +1,15 @@
+new new header:
+
 <!-- _includes/header.html -->
 <nav id="topbar" class="topbar d-flex align-items-center">
   <div class="container d-flex justify-content-between align-items-center py-2">
     <div class="topbar-left d-flex align-items-center">
       <!-- Logo as text with heavenly background -->
-      <a href="{{ '/' | relative_url }}" class="logo-link text-decoration-none">
-        <div class="logo-text p-2 rounded" aria-label="{{ site.title }}">
+      <div class="logo-text p-2 rounded" aria-label="{{ site.title }}">
+        <a href="{{ '/' | relative_url }}" class="logo-link text-decoration-none">
           <span class="logo-name">{{ site.title }}</span>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
 
     <div class="topbar-right d-flex align-items-center">
@@ -32,7 +34,7 @@
   </div>
 </nav>
 
-<<!-- Main navbar -->
+<!-- Main navbar -->
 <nav id="mainNav" class="navbar navbar-expand-lg navbar-sticky">
   <div class="container d-flex align-items-center">
     <!-- Mobile: toggler left -->
