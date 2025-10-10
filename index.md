@@ -6,14 +6,17 @@ hero_height: hero-lg
 subtitle: "Cultivating Your Calling — aligning identity, purpose and profession to bring flourishing to people and communities."
 ---
 
-<section id="intro" class="py-5">
+<!-- Intro Section -->
+<section id="intro" class="py-5" 
+  style="background-image: url('{{ '/assets/images/mission-bg.jpg' | relative_url }}');
+         background-size: cover; background-position: center;">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-6 mb-4 mb-md-0">
-        <img src="{{ '/assets/images/mission-bg.jpg' | relative_url }}" alt="Purpose" class="img-fluid rounded">
+        <img src="{{ '/assets/images/founder.jpg' | relative_url }}" alt="Purpose" class="img-fluid rounded shadow">
       </div>
       <div class="col-md-6">
-        <h2 class="section-title text-center">Helping You Align Purpose and Profession</h2>
+        <h2 class="section-title text-center text-primary">Helping You Align Purpose and Profession</h2>
         <p>As a faith-driven founder rooted in Greensboro, North Carolina, I partner with individuals to uncover the identity and gifts God has given them and translate that into tangible steps for vocational and personal impact. We focus on clarity, practical practices, and God-centered leadership so your work becomes a place of flourishing for you and those you influence.</p>
         <p>Through guided discovery, coaching conversations, and practical frameworks, we help founders and leaders move from uncertainty into sustained momentum — building organizations and families shaped by purpose and love.</p>
       </div>
@@ -21,9 +24,12 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
   </div>
 </section>
 
-<section id="services" class="py-5">
+<!-- Services -->
+<section id="services" class="py-5"
+  style="background-image: url('{{ '/assets/images/services-bg.jpg' | relative_url }}');
+         background-size: cover; background-position: center;">
   <div class="container text-center">
-    <h2 class="section-title text-center">Our Services</h2>
+    <h2 class="section-title text-center text-primary">Our Services</h2>
     <div class="row mt-4 g-4">
       <div class="col-md-4">
         <div class="service-card reveal-on-scroll">
@@ -47,37 +53,39 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
   </div>
 </section>
 
-<section id="reflections" class="py-5">
-  <div class="container">
-    <div class="text-center">
-      <h2 class="section-title text-center">Reflections</h2>
-    </div>
-
-  <div class="row mt-4 g-4">
+<!-- Reflections -->
+<section id="reflections" class="py-5"
+  style="background-image: url('{{ '/assets/images/reflections-bg.jpg' | relative_url }}');
+         background-size: cover; background-position: center;">
+  <div class="container text-center">
+    <h2 class="section-title text-center text-primary">Reflections</h2>
+    <div class="row mt-4 g-4">
       <div class="col-md-6">
         <div class="reflection-card">
-          <div class="reflection-card-inner">
-            <div class="reflection-front">
-              <h5>Losing Momentum</h5>
-              <p>Many founders begin with excitement and vision, then discover momentum fading after the first several months. The struggle is real — distractions, fear, and lies about identity can quietly erode progress. This reflection explores practical spiritual disciplines and truth declarations that restore endurance and clarity, helping founders reclaim small wins and move forward with resilience.</p>
+          <div class="reflection-inner">
+            <div class="front p-4">
+              <h5 class="text-primary fw-bold">Losing Momentum</h5>
+              <p>Many founders begin with excitement and vision, then discover momentum fading after the first several months. This reflection explores practical spiritual disciplines and truth declarations that restore endurance and clarity, helping founders reclaim small wins and move forward with resilience.</p>
+              <button class="btn btn-sm btn-outline-primary mt-2 flip-btn">Read More</button>
             </div>
-            <div class="reflection-back">
-              <h5>More on Losing Momentum</h5>
-              <p>When momentum fades, we focus on small, faithful practices: regular rhythms of prayer and rest, honest community checkpoints, and measurable micro-goals. In the long seasons, choose truth over lies and small wins over dramatic leaps. Persistence + truth = harvest in due season.</p>
+            <div class="back p-4">
+              <h5 class="text-primary fw-bold">More on Losing Momentum</h5>
+              <p>When momentum fades, we focus on small, faithful practices: regular rhythms of prayer and rest, honest community checkpoints, and measurable micro-goals. Choose truth over lies and small wins over dramatic leaps. Persistence + truth = harvest in due season.</p>
             </div>
           </div>
         </div>
       </div>
 
-  <div class="col-md-6">
+      <div class="col-md-6">
         <div class="reflection-card">
-          <div class="reflection-card-inner">
-            <div class="reflection-front">
-              <h5>The Tension of Waiting</h5>
-              <p>Waiting is rarely passive. It's a sacred refining process where dependence grows and unnecessary things are stripped away. In this reflection we talk about practices that turn waiting into formation — how to use stillness and faithful small steps to prepare heart and strategy for the next open door.</p>
+          <div class="reflection-inner">
+            <div class="front p-4">
+              <h5 class="text-primary fw-bold">The Tension of Waiting</h5>
+              <p>Waiting is rarely passive. It's a sacred refining process where dependence grows and unnecessary things are stripped away. We explore how stillness and faithful small steps prepare heart and strategy for the next open door.</p>
+              <button class="btn btn-sm btn-outline-primary mt-2 flip-btn">Read More</button>
             </div>
-            <div class="reflection-back">
-              <h5>More on Waiting</h5>
+            <div class="back p-4">
+              <h5 class="text-primary fw-bold">More on Waiting</h5>
               <p>Use the waiting season to clarify values and align priorities. Build routines that create confidence without pressure. Wait with eyes open: prepare, learn, and steward what God has given until the timing becomes clear.</p>
             </div>
           </div>
@@ -87,24 +95,24 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
   </div>
 </section>
 
-<section id="reviews" class="py-5">
-  <div class="container">
-    <div class="text-center text-white mb-4">
-      <h2 class="section-title text-center">What People Say</h2>
-    </div>
-
-    <div class="d-flex align-items-center justify-content-between mb-3">
+<!-- Reviews -->
+<section id="reviews" class="py-5 text-white"
+  style="background-image: url('{{ '/assets/images/reviews-bg.jpg' | relative_url }}');
+         background-size: cover; background-position: center;">
+  <div class="container text-center">
+    <h2 class="section-title text-center text-white">What People Say</h2>
+    <div class="position-relative mt-4">
       <div id="reviewPrev" class="review-arrow"><i class="bi bi-chevron-left"></i></div>
-      <div class="flex-grow-1 px-3">
-        <div class="review-slide">
-          <h5 class="text-white">Anna</h5>
+      <div class="review-container mx-auto position-relative" style="max-width:700px; min-height:180px;">
+        <div class="review-slide active">
+          <h5>Anna</h5>
           <div class="review-stars">★★★★★</div>
-          <p class="mt-2">"Working with The Solution Source gave me clarity and confidence to launch my initiative. Their approach is practical and deeply rooted in faith."</p>
+          <p>"Working with The Solution Source gave me clarity and confidence to launch my initiative. Their approach is practical and deeply rooted in faith."</p>
         </div>
         <div class="review-slide">
-          <h5 class="text-white">James</h5>
+          <h5>James</h5>
           <div class="review-stars">★★★★★</div>
-          <p class="mt-2">"The coaching helped me lead my team with conviction. We saw improved culture and better decisions."</p>
+          <p>"The coaching helped me lead my team with conviction. We saw improved culture and better decisions."</p>
         </div>
       </div>
       <div id="reviewNext" class="review-arrow"><i class="bi bi-chevron-right"></i></div>
@@ -112,9 +120,10 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
   </div>
 </section>
 
+<!-- CTA -->
 <section id="cta" class="py-5 bg-dark text-light text-center">
   <div class="container">
     <h3 class="section-title text-center">Ready to rediscover your calling?</h3>
-    <a href="/contact" class="btn btn-outline-light mt-3">Contact Me</a>
+    <a href="{{ '/contact' | relative_url }}" class="btn btn-outline-light mt-3">Contact Me</a>
   </div>
 </section>
