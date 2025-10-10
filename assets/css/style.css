@@ -194,19 +194,147 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
 .service-card.visible { transform: translateY(0); opacity:1; }
 .service-card h5 { color: var(--green); margin-bottom:.8rem; }
 
-/* ---------- Reflections (click-to-flip) ---------- */
-#reflections { padding: 4rem 0; }
-.reflection-card { perspective: 1200px; height: 40vh; }
-.reflection-card-inner, .reflection-card-inner { position: relative; width:100%; height:100%; transition: transform .7s ease; transform-style: preserve-3d; }
-.reflection-card.flipped .reflection-card-inner { transform: rotateY(180deg); }
-/* front & back */
-.reflection-front, .reflection-back {
-  position: absolute; inset:0; backface-visibility: hidden; border-radius:12px; padding:1.2rem; background:#fff; box-shadow: 0 8px 30px rgba(10,10,10,0.06); overflow:auto;
+/* ---------- Reflections Section ---------- */
+#reflections {
+  padding: 3.5rem 0;
+  overflow-x: hidden; /* prevent horizontal scroll on all devices */
 }
-.reflection-back { transform: rotateY(180deg); }
 
-/* small "Read More" button aligned */
-.flip-btn { margin-top: .9rem; }
+#reflections .row {
+  row-gap: 2rem;
+}
+
+/* reflection card container */
+.reflection-card {
+  perspective: 1200px;
+  height: 420px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden; /* contain any 3D overflow */
+}
+
+/* inner wrapper handles flipping */
+.reflection-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.reflection-card.flipped .reflection-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* front & back faces */
+.reflection-front,
+.reflection-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: opacity 0.4s ease;
+}
+
+.reflection-back {
+  transform: rotateY(180deg);
+}
+
+/* card headings */
+.reflection-card h5 {
+  text-align: center;
+  color: var(--green);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* text content */
+.reflection-card p {
+  flex-grow: 1;
+  text-align: justify;
+}
+
+/* flip buttons */
+.flip-btn {
+  margin-top: 1rem;
+  display: inline-block;
+  align-self: center;
+}
+
+/* ---------- Responsive Adjustments ---------- */
+@media (max-width: 991px) {
+  #reflections {
+    padding: 2.5rem 0;
+  }
+
+  #reflections .row {
+    row-gap: 1.2rem !important;
+  }
+
+  .reflection-card {
+    height: 380px;
+    overflow: hidden; /* prevents card overflow */
+  }
+
+  .reflection-card-inner {
+    height: 100%;
+  }
+
+  /* maintain 3D flip but prevent overflow */
+  .reflection-front,
+  .reflection-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  .reflection-back {
+    transform: rotateY(180deg);
+  }
+
+  /* subtle depth effect */
+  .reflection-card-inner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
+    transform: translateZ(-1px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .reflection-card.flipped .reflection-card-inner::after {
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 575px) {
+  .reflection-card {
+    height: 360px;
+  }
+
+  .reflection-card h5 {
+    font-size: 1.05rem;
+  }
+
+  .reflection-card p {
+    font-size: 0.9rem;
+  }
+
+  /* ensure no horizontal scroll at all */
+  body, html {
+    overflow-x: hidden;
+  }
+}
 
 /* ---------- Reveal on scroll ---------- */
 .reveal-on-scroll { transform: translateY(18px); opacity: 0; transition: all .7s ease; }
@@ -281,9 +409,6 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
   .call-btn { position: absolute; right: 12px; top: 10px; z-index: 1065; }
   .topbar { padding: 0 12px; height: var(--topbar-height); }
   .section-title::after { width: 60%; }
-  .reflection-card { height: auto; min-height: 360px; } /* allow scrollable content on small devices */
-  .reflection-front, .reflection-back { height: auto; position: relative; transform: none; backface-visibility: visible; }
-  .reflection-card.flipped .reflection-card-inner { transform: none; } /* disable 3d on small devices for performance */
   .review-container { min-height: 200px; }
   .site-footer .footer-top { text-align:center; }
   .site-footer .row { display:flex; flex-direction:column; align-items:center; text-align:center; }
