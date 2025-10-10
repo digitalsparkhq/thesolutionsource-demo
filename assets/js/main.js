@@ -113,4 +113,19 @@ document.addEventListener('DOMContentLoaded', function () {
       if (bsCollapse) bsCollapse.hide();
     });
   });
+
+
+  window.addEventListener('scroll', () => {
+  const topBar = document.querySelector('.top-bar');
+  const navBar = document.querySelector('.navbar');
+  if (window.scrollY > 100) {
+    topBar.style.top = '-60px';
+    navBar.classList.add('scrolled');
+  } else {
+    topBar.style.top = '0';
+    navBar.classList.remove('scrolled');
+  }
 });
+});
+
+
