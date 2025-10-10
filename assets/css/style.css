@@ -147,31 +147,40 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
   padding: 4rem 1.5rem 2rem 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* ✅ ensures items stretch from top to bottom */
 }
+
+/* make open state visible */
 .mobile-nav-overlay.open {
   transform: translateY(0);
   opacity: 1;
 }
+
+/* mobile nav links */
 .mobile-nav-overlay .nav-link {
   color: #222;
   font-weight: 600;
   padding: 0.8rem 0;
 }
-.mobile-nav-overlay .nav-link:hover { color: var(--primary); }
-
-.mobile-nav-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: black;
-  cursor: pointer;
+.mobile-nav-overlay .nav-link:hover {
+  color: var(--primary);
 }
 
-.mobile-nav-close:hover {
-  color: rgb(69, 137, 204);
+/* ✅ new: close button styling */
+.mobile-nav-overlay .close-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  align-self: center;
+  margin-top: 1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.mobile-nav-overlay .close-btn:hover {
+  background: #357ac9;
+  transform: translateY(-2px);
 }
 
 /* ---------- Section heading style (centered underline across middle) ---------- */
