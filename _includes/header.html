@@ -32,19 +32,17 @@
   </div>
 </nav>
 
-<!-- Main navbar -->
+<<!-- Main navbar -->
 <nav id="mainNav" class="navbar navbar-expand-lg navbar-sticky">
-  <div class="container d-flex align-items-center justify-content-between">
+  <div class="container d-flex align-items-center">
+    <!-- Mobile: toggler left -->
+    <button class="navbar-toggler me-2 d-lg-none" type="button" id="mobileMenuToggler">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Left: logo + desktop menu -->
-    <div class="d-flex align-items-center">
-      <!-- Logo -->
-      <a class="navbar-brand me-3 d-none d-lg-inline" href="{{ '/' | relative_url }}">
-        <span class="logo-text">{{ site.title }}</span>
-      </a>
-
-      <!-- Desktop nav menu -->
-      <ul class="navbar-nav d-none d-lg-flex align-items-center">
+    <!-- Desktop nav menu: left-aligned -->
+    <div class="d-none d-lg-flex">
+      <ul class="navbar-nav align-items-center">
         {% for item in site.data.navigation %}
         <li class="nav-item px-2">
           <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
@@ -53,12 +51,7 @@
       </ul>
     </div>
 
-    <!-- Mobile toggler -->
-    <button class="navbar-toggler d-lg-none" type="button" id="mobileMenuToggler" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Right: call button -->
+    <!-- Right: call box -->
     <div class="ms-auto">
       <div class="d-none d-lg-inline">
         <a href="tel:+1234567890" class="call-box d-inline-flex align-items-center px-3 py-2 rounded">
@@ -69,20 +62,19 @@
         <a href="tel:+1234567890" class="btn btn-sm btn-primary call-btn">Call Us</a>
       </div>
     </div>
+  </div>
 
-  </div> <!-- container -->
+  <!-- Mobile overlay menu -->
+  <div id="mobileNavOverlay" class="mobile-nav-overlay d-none">
+    <ul class="navbar-nav flex-column text-start py-4 px-3">
+      {% for item in site.data.navigation %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </nav>
-
-<!-- Mobile overlay menu (hidden on desktop) -->
-<div id="mobileNavOverlay" class="mobile-nav-overlay d-lg-none">
-  <ul class="navbar-nav flex-column text-start">
-    {% for item in site.data.navigation %}
-    <li class="nav-item">
-      <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
 
 <!-- Hero -->
 {% if page.hero_image %}
