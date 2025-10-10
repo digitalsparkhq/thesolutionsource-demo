@@ -1,12 +1,3 @@
-// assets/js/main.js (updated)
-// - topbar/nav swap on scroll
-// - nav active highlight
-// - reveal on scroll
-// - reflection: flip on Read More button click
-// - reviews carousel with auto-advance + stable height
-// - AJAX contact submission (Formspree-compatible)
-// - collapse behaviour for mobile nav
-
 document.addEventListener('DOMContentLoaded', function () {
   const topbar = document.getElementById('topbar');
   const mainNav = document.getElementById('mainNav');
