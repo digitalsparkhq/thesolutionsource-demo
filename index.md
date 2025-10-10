@@ -99,27 +99,25 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
       <h2 class="section-title text-center">What People Say</h2>
     </div>
 
-<div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center justify-content-between mb-3 position-relative overflow-hidden" style="min-height:220px;">
       <div id="reviewPrev" class="review-arrow"><i class="bi bi-chevron-left"></i></div>
-      <div class="flex-grow-1 px-3">
-        <div class="review-slide">
-          <div class="review-item active text-center">
+      <div class="flex-grow-1 px-3 position-relative">
+        <div class="review-slide active">
           <h5 class="text-white">Anna</h5>
           <div class="review-stars">★★★★★</div>
           <p class="mt-2">"Working with The Solution Source gave me clarity and confidence to launch my initiative. Their approach is practical and deeply rooted in faith."</p>
         </div>
-          </div>
         <div class="review-slide">
-          <div class="review-item text-center">
           <h5 class="text-white">James</h5>
           <div class="review-stars">★★★★★</div>
           <p class="mt-2">"The coaching helped me lead my team with conviction. We saw improved culture and better decisions."</p>
         </div>
-        </div>
+      </div>
       <div id="reviewNext" class="review-arrow"><i class="bi bi-chevron-right"></i></div>
-  </div>
+    </div>
   </div>
 </section>
+
 
 <section id="cta" class="py-5 bg-dark text-light text-center">
   <div class="container">
