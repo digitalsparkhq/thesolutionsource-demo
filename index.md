@@ -128,6 +128,6 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
 <section id="cta" class="py-5 bg-dark text-light text-center">
   <div class="container">
     <h3>Ready to rediscover your calling?</h3>
-    <a href="/contact" class="btn btn-outline-light mt-3">Contact Me</a>
+    <a href="/thesolutionsource-demo/contact/" class="btn btn-outline-light mt-3">Contact Me</a>
   </div>
 </section>
