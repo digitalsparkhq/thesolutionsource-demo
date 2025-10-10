@@ -60,7 +60,7 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
     <div class="row mt-4 g-4">
 
       <div class="col-md-6">
-        <div class="reflection-card">
+        <div class="reflection-card reveal-on-scroll">
           <div class="reflection-card-inner">
             <div class="reflection-front">
               <h5>Losing Momentum</h5>
@@ -77,7 +77,7 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
       </div>
 
       <div class="col-md-6">
-        <div class="reflection-card">
+        <div class="reflection-card reveal-on-scroll">
           <div class="reflection-card-inner">
             <div class="reflection-front">
               <h5>The Tension of Waiting</h5>
