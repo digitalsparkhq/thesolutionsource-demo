@@ -77,14 +77,13 @@ if (mobileToggler && mobileOverlay) {
 }
 
    // Close mobile nav
-  const closeBtn = document.querySelector('.mobile-nav-close');
+const closeBtn = document.querySelector('.close-btn');
 if (closeBtn) {
   closeBtn.addEventListener('click', () => {
     mobileOverlay.classList.remove('open');
     document.body.style.overflow = '';
   });
 }
-
   // ------- Robust Reviews Slider -------
   (function () {
     const slides = Array.from(document.querySelectorAll(".review-slide"));
