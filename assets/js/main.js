@@ -59,46 +59,59 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ---------- reviews carousel with arrows + auto-advance ----------
-  const slides = Array.from(document.querySelectorAll('.review-slide'));
-  const prevBtn = document.getElementById('reviewPrev');
-  const nextBtn = document.getElementById('reviewNext');
-  let reviewIndex = 0;
-  let reviewTimer = null;
+// ----- Reviews Slider -----
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".review-slide");
+  const next = document.getElementById("reviewNext");
+  const prev = document.getElementById("reviewPrev");
+  let index = 0;
+  let autoSlide;
 
-  function showReview(i) {
-    slides.forEach((s, idx) => {
-      s.classList.toggle('active', idx === i);
-    });
-  }
-  function startReviewAuto() {
-    if (reviewTimer) clearInterval(reviewTimer);
-    reviewTimer = setInterval(() => {
-      reviewIndex = (reviewIndex + 1) % slides.length;
-      showReview(reviewIndex);
-    }, 6000);
-  }
-  if (slides.length) {
-    showReview(0);
-    startReviewAuto();
-    prevBtn?.addEventListener('click', () => {
-      reviewIndex = (reviewIndex - 1 + slides.length) % slides.length;
-      showReview(reviewIndex);
-      startReviewAuto();
-    });
-    nextBtn?.addEventListener('click', () => {
-      reviewIndex = (reviewIndex + 1) % slides.length;
-      showReview(reviewIndex);
-      startReviewAuto();
-    });
+  function showSlide(newIndex, direction = "right") {
+    if (newIndex === index) return;
+    slides[index].classList.remove("active");
+    slides[index].classList.add(direction === "right" ? "exit-left" : "exit-right");
+    slides[newIndex].classList.add("active");
 
-    // pause auto on hover (desktop)
-    const reviewContainer = document.querySelector('#reviews');
-    if (reviewContainer) {
-      reviewContainer.addEventListener('mouseenter', () => clearInterval(reviewTimer));
-      reviewContainer.addEventListener('mouseleave', () => startReviewAuto());
-    }
+    setTimeout(() => {
+      slides.forEach(s => s.classList.remove("exit-left", "exit-right"));
+    }, 700);
+
+    index = newIndex;
   }
+
+  function nextSlide() {
+    const newIndex = (index + 1) % slides.length;
+    showSlide(newIndex, "right");
+  }
+
+  function prevSlide() {
+    const newIndex = (index - 1 + slides.length) % slides.length;
+    showSlide(newIndex, "left");
+  }
+
+  function startAutoSlide() {
+    autoSlide = setInterval(nextSlide, 5000);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlide);
+  }
+
+  next.addEventListener("click", () => {
+    stopAutoSlide();
+    nextSlide();
+    startAutoSlide();
+  });
+
+  prev.addEventListener("click", () => {
+    stopAutoSlide();
+    prevSlide();
+    startAutoSlide();
+  });
+
+  startAutoSlide();
+});
 
   // ---------- contact modal + AJAX form ----------
   const contactModalEl = document.getElementById('contactModal');
