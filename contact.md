@@ -13,13 +13,9 @@ hero_height: hero-sm
   </div>
 </section>
 
-{% include contact-form.html %}
-
-<section class="py-5 bg-dark text-light text-center">
-  <div class="container">
-    <h5>Connect with us</h5>
-    <a href="#" class="text-light me-3">LinkedIn</a>
-    <a href="#" class="text-light me-3">Instagram</a>
-    <a href="#" class="text-light">Facebook</a>
+<section class="py-5">
+  <div class="container contact-form-wrapper">
+    <h2 class="text-center mb-4 section-title">Get in Touch</h2>
+    {% include contact-form.html %}
   </div>
 </section>
