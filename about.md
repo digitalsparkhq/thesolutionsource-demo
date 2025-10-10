@@ -50,6 +50,6 @@ hero_height: hero-sm
 <section class="py-5 bg-dark text-light text-center">
   <div class="container">
     <h3>Discover how your work and calling can align</h3>
-    <a href="/#services" class="btn btn-outline-light mt-3">Explore Services</a>
+    <a href="/thesolutionsource-demo/#services" class="btn btn-outline-light mt-3">Explore Services</a>
   </div>
 </section>
