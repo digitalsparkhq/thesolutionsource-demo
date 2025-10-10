@@ -2,15 +2,11 @@
   <div class="container">
     <div class="row align-items-start">
       <div class="col-md-4 mb-3">
-        <div class="footer-logo">
-          <a href="{{ '/' | relative_url }}" class="text-decoration-none">
-            <span class="logo-name">{{ site.title }}</span>
-          </a>
-        </div>
+        <a href="{{ '/' | relative_url }}" class="text-decoration-none logo-name">{{ site.title }}</a>
       </div>
 
       <div class="col-md-4 mb-3 text-center">
-        <ul class="footer-nav list-unstyled d-inline-flex gap-3">
+        <ul class="footer-nav list-unstyled d-inline-flex gap-3 mb-0">
           {% for item in site.data.navigation %}
             <li><a href="{{ item.url | relative_url }}" class="text-decoration-none">{{ item.title }}</a></li>
           {% endfor %}
@@ -22,7 +18,8 @@
           <i class="bi bi-geo-alt-fill me-1"></i> {{ site.location }}
         </div>
         <div class="mb-2">
-          <i class="bi bi-envelope-fill me-1"></i> <a href="mailto:{{ site.email }}" class="text-decoration-none">{{ site.email }}</a>
+          <i class="bi bi-envelope-fill me-1"></i>
+          <a href="mailto:{{ site.email }}" class="text-decoration-none">{{ site.email }}</a>
         </div>
         <div>
           <a href="{{ site.social_links.linkedin }}" class="me-2 social"><i class="bi bi-linkedin"></i></a>
@@ -34,13 +31,26 @@
 
     <hr class="footer-divider">
 
-    <div class="d-flex justify-content-between small py-3">
-      <div>
-        <span>© {{ site.time | date: "%Y" }} {{ site.title }}</span>
-      </div>
+    <div class="d-flex justify-content-between small py-3 flex-wrap">
+      <div>© {{ site.time | date: "%Y" }} {{ site.title }}</div>
       <div class="text-end small">
-        <span class="me-2">Designed by</span>
+        Designed by
         <a href="https://digitalsparkhq.github.io" class="text-decoration-none">Digital Spark HQ</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Contact Us</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% include contact-form.html %}
+        </div>
       </div>
     </div>
   </div>
