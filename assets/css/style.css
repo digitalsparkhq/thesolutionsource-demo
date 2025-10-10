@@ -1,10 +1,11 @@
 /* ---------- Color tokens ---------- */
-:root{
-  --primary: rgb(69,137,204);    /* your nav color */
+:root {
+  --primary: rgb(69,137,204); /* brand/nav color */
   --accent: #D4AF37;
   --green: #004E45;
   --cream: #FBF7F2;
   --text: #222;
+  --bg: #F6F3EE;
 }
 
 /* ---------- Global ---------- */
@@ -13,7 +14,8 @@ body {
   color: var(--text);
   margin: 0;
   padding-top: 0;
-  background: #F6F3EE;
+  background: var(--bg);
+  overflow-x: hidden;
 }
 
 /* ---------- Topbar ---------- */
@@ -28,12 +30,10 @@ body {
 }
 .topbar.hidden { transform: translateY(-100%); opacity: 0; }
 
-/* Heavenly background for logo text */
 .logo-text {
   background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.65), transparent 20%),
     linear-gradient(180deg, rgba(240,248,255,0.7), rgba(200,225,255,0.25));
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: 0 14px;
   backdrop-filter: blur(2px);
 }
 .logo-name {
@@ -42,7 +42,7 @@ body {
   letter-spacing: 0.3px;
   font-size: 1.05rem;
 }
-.topbar-right a.social { color: var(--text); }
+.topbar-right a.social { color: var(--text); transition: color .2s ease; }
 .topbar-right a.social:hover { color: var(--primary); }
 
 /* ---------- Navbar ---------- */
@@ -59,7 +59,6 @@ body {
   font-weight: 600;
 }
 .navbar-sticky .nav-link:hover { text-decoration: none; color: #fff; opacity: .9; }
-.navbar-sticky .nav-link.active,
 .navbar-sticky .nav-link.current {
   text-decoration: underline;
   text-underline-offset: 6px;
@@ -67,7 +66,6 @@ body {
   color: #fff;
 }
 
-/* call box on desktop */
 .call-box {
   background: rgba(255,255,255,0.95);
   color: var(--primary);
@@ -76,13 +74,8 @@ body {
 }
 .call-box:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 
-/* mobile call button */
-.call-btn {
-  background: var(--primary);
-  color: #fff;
-}
+.call-btn { background: var(--primary); color: #fff; }
 
-/* ensure navbar doesn't hide content on anchor jump */
 section { scroll-margin-top: 120px; }
 
 /* ---------- Hero ---------- */
@@ -95,10 +88,15 @@ section { scroll-margin-top: 120px; }
   align-items: center;
   justify-content: center;
 }
-.hero-overlay {
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: rgba(0,0,0,0.35);
-  width: 100%;
-  min-height: 100%;
+}
+.hero-overlay {
+  position: relative;
+  z-index: 1;
   padding: 6rem 0;
 }
 .hero-title {
@@ -113,10 +111,9 @@ section { scroll-margin-top: 120px; }
   margin: 0 auto;
 }
 
-/* ---------- Intro/Mission section ---------- */
+/* ---------- Intro ---------- */
 #intro {
-  background-image: url('{{ "/assets/images/pattern.png" | relative_url }}'); /* subtle charming pattern */
-  background-repeat: repeat;
+  background: var(--cream) url('{{ "/assets/images/pattern.png" | relative_url }}') repeat;
   background-size: auto;
   padding: 5rem 0;
 }
@@ -127,9 +124,9 @@ section { scroll-margin-top: 120px; }
   padding: 4rem 0;
 }
 #services h2 {
-  position: relative;
   display: inline-block;
   margin-bottom: 1.5rem;
+  position: relative;
 }
 #services h2::after {
   content: "";
@@ -149,30 +146,19 @@ section { scroll-margin-top: 120px; }
   opacity: 0;
   transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .6s ease;
 }
-.service-card.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
+.service-card.visible { transform: translateY(0); opacity: 1; }
 .service-card h5 { color: var(--green); margin-bottom: .8rem; }
 
 /* ---------- Reflections ---------- */
-#reflections {
-  padding: 4rem 0;
-}
-#reflections h2 {
-  display:inline-block;
-  margin-bottom:1.5rem;
-}
+#reflections { padding: 4rem 0; }
 #reflections h2::after {
   content: "";
-  display:block;
-  width:60px;
-  height:4px;
+  display: block;
+  width: 60px;
+  height: 4px;
   background: var(--primary);
-  margin-top:8px;
+  margin-top: 8px;
 }
-
-/* flip card grid */
 .reflection-card {
   perspective: 1200px;
   height: 40vh;
@@ -198,11 +184,8 @@ section { scroll-margin-top: 120px; }
   background: #fff;
   overflow: auto;
 }
-.reflection-back {
-  transform: rotateY(180deg);
-}
+.reflection-back { transform: rotateY(180deg); }
 
-/* fade up reveal for section */
 .reveal-on-scroll {
   transform: translateY(18px);
   opacity: 0;
@@ -213,22 +196,15 @@ section { scroll-margin-top: 120px; }
   opacity: 1;
 }
 
-/* ---------- Reviews Carousel ---------- */
+/* ---------- Reviews ---------- */
 #reviews {
   padding: 4rem 0;
-  background-image: url('{{ "/assets/images/reviews-bg.jpg" | relative_url }}');
-  background-size: cover;
-  background-position: center;
+  background: #123 url('{{ "/assets/images/reviews-bg.jpg" | relative_url }}') center/cover no-repeat;
   color: #fff;
 }
-.review-slide {
-  display: none;
-  text-align: center;
-}
+.review-slide { display: none; text-align: center; }
 .review-slide.active { display: block; }
 .review-stars { color: gold; font-size: 1.2rem; }
-
-/* arrows */
 .review-arrow {
   background: rgba(0,0,0,0.4);
   color: #fff;
@@ -247,19 +223,20 @@ section { scroll-margin-top: 120px; }
 .site-footer {
   color: #333;
   background: #fff;
+  padding-top: 2rem;
 }
 .footer-divider {
   border-top: 1px solid rgba(0,0,0,0.06);
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem 0;
 }
+.social { color: var(--text); transition: color .2s ease; }
+.social:hover { color: var(--primary); }
 
-/* ---------- Responsive tweaks ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width: 991px) {
   .navbar-sticky .nav-link { padding: .4rem .6rem; font-size: .95rem; }
   .hero-overlay { padding: 4rem 1rem; }
   .topbar { padding: .25rem 0; }
 }
 
-/* ensure focus & accessible color contrast where needed */
 a, button { outline-offset: 3px; }
