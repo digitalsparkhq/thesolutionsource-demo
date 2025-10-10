@@ -1,34 +1,84 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="Logo" height="40" class="me-2">
-      {{ site.title }}
-    </a>
+<!-- _includes/header.html -->
+<nav id="topbar" class="topbar d-flex align-items-center">
+  <div class="container d-flex justify-content-between align-items-center py-2">
+    <div class="topbar-left d-flex align-items-center">
+      <!-- Logo as text with heavenly background -->
+      <div class="logo-text p-2 rounded" aria-label="{{ site.title }}">
+        <a href="{{ '/' | relative_url }}" class="logo-link text-decoration-none">
+          <span class="logo-name">{{ site.title }}</span>
+        </a>
+      </div>
+    </div>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="topbar-right d-flex align-items-center">
+      <!-- Email + icon (hide text on mobile) -->
+      <div class="top-email d-none d-md-flex align-items-center me-3">
+        <i class="bi bi-envelope-fill me-1" aria-hidden="true"></i>
+        <a href="mailto:{{ site.email }}" class="text-decoration-none">{{ site.email }}</a>
+      </div>
+      <div class="top-email d-flex d-md-none align-items-center me-3">
+        <!-- Mobile: icon only -->
+        <a href="mailto:{{ site.email }}" aria-label="Email" class="text-decoration-none">
+          <i class="bi bi-envelope-fill"></i>
+        </a>
+      </div>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        {% for item in site.data.navigation %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-          </li>
-        {% endfor %}
-      </ul>
+      <!-- Social icons -->
+      <div class="social-icons d-flex">
+        <a href="{{ site.social_links.linkedin }}" class="me-2 social" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+        <a href="{{ site.social_links.instagram }}" class="me-2 social" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="{{ site.social_links.facebook }}" class="social" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<header class="hero {{ page.hero_height }}" style="background-image: url('{{ page.hero_image | relative_url }}');">
-  <div class="overlay d-flex justify-content-center align-items-center text-center">
-    <div class="text-light">
-      <h1 class="display-4">{{ page.title }}</h1>
+<!-- Main navbar -->
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-sticky">
+  <div class="container d-flex align-items-center">
+    <!-- Mobile: toggler left -->
+    <button class="navbar-toggler me-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- center menu (use flexbox trick) -->
+    <div class="mx-auto order-2 order-lg-1">
+      <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
+        <ul class="navbar-nav">
+          {% for item in site.data.navigation %}
+          <li class="nav-item px-2">
+            <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right: call box (on mobile show call button) -->
+    <div class="ms-auto order-3">
+      <div class="d-none d-lg-inline">
+        <a href="tel:+1234567890" class="call-box d-inline-flex align-items-center px-3 py-2 rounded">
+          <span class="call-number">+1 (234) 567-890</span>
+        </a>
+      </div>
+      <div class="d-lg-none">
+        <a href="tel:+1234567890" class="btn btn-sm btn-primary call-btn">Call</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero (full viewport) -->
+<header id="hero" class="hero hero-lg" style="background-image: url('{{ page.hero_image | relative_url }}');">
+  <div class="hero-overlay d-flex flex-column justify-content-center align-items-center text-center px-3">
+    <div class="hero-inner container">
+      <h1 class="hero-title">{{ page.title }}</h1>
       {% if page.subtitle %}
-      <p class="lead">{{ page.subtitle }}</p>
+      <p class="hero-subtext lead">{{ page.subtitle }}</p>
       {% endif %}
+      <div class="mt-4">
+        <button id="openContactModal" class="btn btn-lg btn-primary">Contact Us</button>
+      </div>
     </div>
   </div>
 </header>
