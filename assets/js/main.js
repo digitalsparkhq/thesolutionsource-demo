@@ -69,8 +69,18 @@ let autoSlide;
 function showSlide(newIndex, direction = "right") {
   if (newIndex === index) return;
 
+  // Current slide exits left if moving right, or right if moving left
   slides[index].style.transform = direction === "right" ? "translateX(-100%)" : "translateX(100%)";
   slides[index].style.opacity = "0";
+
+  // Prepare next slide: start off-screen opposite direction
+  slides[newIndex].style.transform = direction === "right" ? "translateX(100%)" : "translateX(-100%)";
+  slides[newIndex].style.opacity = "0";
+
+  // Force reflow for transition to apply
+  void slides[newIndex].offsetWidth;
+
+  // Animate next slide into view
   slides[newIndex].style.transform = "translateX(0)";
   slides[newIndex].style.opacity = "1";
 
@@ -113,6 +123,7 @@ if (next && prev && slides.length > 1) {
 
   startAutoSlide();
 }
+
   // ---------- contact modal + AJAX form ----------
   const contactModalEl = document.getElementById('contactModal');
   if (contactModalEl) {
