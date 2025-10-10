@@ -1,40 +1,28 @@
-// assets/js/main.js
 document.addEventListener('DOMContentLoaded', function () {
-  // elements
   const topbar = document.getElementById('topbar');
   const mainNav = document.getElementById('mainNav');
-  const hero = document.getElementById('hero');
   const navLinks = document.querySelectorAll('#navbarMenu .nav-link');
-  const callBox = document.querySelector('.call-box');
   let lastScroll = 0;
 
-  // topbar hide on scroll, navbar sticky behavior
-  function onScroll() {
+  // Topbar hide on scroll
+  window.addEventListener('scroll', () => {
     const st = window.scrollY || window.pageYOffset;
-    if (st > 80) {
-      topbar.classList.add('hidden');
-      mainNav.classList.add('scrolled');
-    } else {
-      topbar.classList.remove('hidden');
-      mainNav.classList.remove('scrolled');
+    if (topbar) {
+      if (st > 80) topbar.classList.add('hidden');
+      else topbar.classList.remove('hidden');
     }
+    if (mainNav) mainNav.classList.toggle('scrolled', st > 80);
     lastScroll = st;
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  }, { passive: true });
 
-  // nav active link highlight (simple)
+  // Active nav link highlight
   function updateActiveLink() {
     const scrollPos = window.scrollY + 140;
     document.querySelectorAll('section[id]').forEach(section => {
       if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
         const id = '#' + section.id;
         navLinks.forEach(a => {
-          if (a.getAttribute('href') === id || a.getAttribute('href') === id + '/') {
-            a.classList.add('current');
-          } else {
-            a.classList.remove('current');
-          }
+          a.classList.toggle('current', a.getAttribute('href') === id || a.getAttribute('href') === id + '/');
         });
       }
     });
@@ -42,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', updateActiveLink);
   updateActiveLink();
 
-  // reveal on scroll for elements with .reveal-on-scroll
+  // Reveal on scroll
   const revealItems = document.querySelectorAll('.reveal-on-scroll, .service-card');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -54,14 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }, { threshold: 0.18 });
   revealItems.forEach(it => observer.observe(it));
 
-  // reflection flip card - also support touch toggle
+  // Reflection flip
   document.querySelectorAll('.reflection-card').forEach(card => {
-    card.addEventListener('click', function () {
-      this.classList.toggle('flip');
-    });
+    card.addEventListener('click', () => card.classList.toggle('flip'));
   });
 
-  // Reviews carousel (simple)
+  // Simple reviews carousel
   let reviewIndex = 0;
   const slides = document.querySelectorAll('.review-slide');
   const prevBtn = document.getElementById('reviewPrev');
@@ -72,33 +58,41 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   if (slides.length) {
     showReview(0);
-    if (prevBtn) prevBtn.addEventListener('click', () => { reviewIndex = (reviewIndex - 1 + slides.length) % slides.length; showReview(reviewIndex); });
-    if (nextBtn) nextBtn.addEventListener('click', () => { reviewIndex = (reviewIndex + 1) % slides.length; showReview(reviewIndex); });
+    prevBtn?.addEventListener('click', () => {
+      reviewIndex = (reviewIndex - 1 + slides.length) % slides.length;
+      showReview(reviewIndex);
+    });
+    nextBtn?.addEventListener('click', () => {
+      reviewIndex = (reviewIndex + 1) % slides.length;
+      showReview(reviewIndex);
+    });
   }
 
-  // Open contact modal from hero button
-  const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
-  document.getElementById('openContactModal')?.addEventListener('click', () => contactModal.show());
+  // Contact modal trigger
+  const contactModalEl = document.getElementById('contactModal');
+  if (contactModalEl) {
+    const contactModal = new bootstrap.Modal(contactModalEl);
+    document.getElementById('openContactModal')?.addEventListener('click', () => contactModal.show());
+  }
 
-  // AJAX contact form submission (Formspree)
+  // AJAX contact form (Formspree)
   const ajaxForm = document.getElementById('ajaxContactForm');
   if (ajaxForm) {
     ajaxForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      const formData = new FormData(ajaxForm);
       const resultEl = document.getElementById('cf-result');
       resultEl.textContent = 'Sending...';
 
       fetch(ajaxForm.action, {
         method: 'POST',
-        body: formData,
+        body: new FormData(ajaxForm),
         headers: { 'Accept': 'application/json' },
-      }).then(response => response.json()).then(data => {
-        if (data.ok || data.success || response?.status === 200) {
+      }).then(res => {
+        if (res.ok) {
           resultEl.innerHTML = '<div class="alert alert-success">Thank you — your message has been sent.</div>';
           ajaxForm.reset();
         } else {
-          resultEl.innerHTML = '<div class="alert alert-danger">Sorry, an error occurred. Please try again later.</div>';
+          resultEl.innerHTML = '<div class="alert alert-danger">An error occurred. Please try again later.</div>';
         }
       }).catch(() => {
         resultEl.innerHTML = '<div class="alert alert-danger">Network error. Please try again later.</div>';
@@ -106,26 +100,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // collapse mobile navbar on link click
+  // Collapse mobile navbar on link click
   document.querySelectorAll('#navbarMenu .nav-link').forEach(a => {
     a.addEventListener('click', () => {
       const bsCollapse = bootstrap.Collapse.getInstance(document.getElementById('navbarMenu'));
       if (bsCollapse) bsCollapse.hide();
     });
   });
-
-
-  window.addEventListener('scroll', () => {
-  const topBar = document.querySelector('.top-bar');
-  const navBar = document.querySelector('.navbar');
-  if (window.scrollY > 100) {
-    topBar.style.top = '-60px';
-    navBar.classList.add('scrolled');
-  } else {
-    topBar.style.top = '0';
-    navBar.classList.remove('scrolled');
-  }
 });
-});
-
-
