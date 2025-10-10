@@ -1,92 +1,131 @@
+// assets/js/main.js (updated)
+// - topbar/nav swap on scroll
+// - nav active highlight
+// - reveal on scroll
+// - reflection: flip on Read More button click
+// - reviews carousel with auto-advance + stable height
+// - AJAX contact submission (Formspree-compatible)
+// - collapse behaviour for mobile nav
+
 document.addEventListener('DOMContentLoaded', function () {
   const topbar = document.getElementById('topbar');
   const mainNav = document.getElementById('mainNav');
   const navLinks = document.querySelectorAll('#navbarMenu .nav-link');
   let lastScroll = 0;
 
-  // Topbar hide on scroll
-  window.addEventListener('scroll', () => {
+  // ---------- topbar hide on scroll and navbar pull-up ----------
+  const SCROLL_TRIGGER = 80;
+  function handleScroll() {
     const st = window.scrollY || window.pageYOffset;
     if (topbar) {
-      if (st > 80) topbar.classList.add('hidden');
+      if (st > SCROLL_TRIGGER) topbar.classList.add('hidden');
       else topbar.classList.remove('hidden');
     }
-    if (mainNav) mainNav.classList.toggle('scrolled', st > 80);
+    if (mainNav) mainNav.classList.toggle('scrolled', st > SCROLL_TRIGGER);
     lastScroll = st;
-  }, { passive: true });
+  }
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 
-  // Active nav link highlight
+  // ---------- active nav link highlight while scrolling ----------
   function updateActiveLink() {
-    const scrollPos = window.scrollY + 140;
+    const scrollPos = window.scrollY + (window.innerHeight * 0.18) + 80;
     document.querySelectorAll('section[id]').forEach(section => {
-      if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
-        const id = '#' + section.id;
-        navLinks.forEach(a => {
-          a.classList.toggle('current', a.getAttribute('href') === id || a.getAttribute('href') === id + '/');
-        });
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      const id = '#' + section.id;
+      if (scrollPos >= top && scrollPos < bottom) {
+        navLinks.forEach(a => a.classList.toggle('current', a.getAttribute('href') === id || a.getAttribute('href') === id + '/'));
       }
     });
   }
   window.addEventListener('scroll', updateActiveLink);
   updateActiveLink();
 
-  // Reveal on scroll
+  // ---------- reveal on scroll (IntersectionObserver) ----------
   const revealItems = document.querySelectorAll('.reveal-on-scroll, .service-card');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.18 });
-  revealItems.forEach(it => observer.observe(it));
+  if (revealItems.length) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    revealItems.forEach(el => observer.observe(el));
+  }
 
-  // Reflection flip
-  document.querySelectorAll('.reflection-card').forEach(card => {
-    card.addEventListener('click', () => card.classList.toggle('flip'));
+  // ---------- reflection flip on Read More button (click) ----------
+  document.querySelectorAll('.flip-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const card = this.closest('.reflection-card');
+      if (!card) return;
+      // toggle 'flipped' class (CSS handles 3d)
+      card.classList.toggle('flipped');
+      // on small devices we avoid 3d transform (CSS handles that)
+    });
   });
 
-  // Simple reviews carousel
-  let reviewIndex = 0;
-  const slides = document.querySelectorAll('.review-slide');
+  // ---------- reviews carousel with arrows + auto-advance ----------
+  const slides = Array.from(document.querySelectorAll('.review-slide'));
   const prevBtn = document.getElementById('reviewPrev');
   const nextBtn = document.getElementById('reviewNext');
+  let reviewIndex = 0;
+  let reviewTimer = null;
 
-  function showReview(idx) {
-    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  function showReview(i) {
+    slides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === i);
+    });
+  }
+  function startReviewAuto() {
+    if (reviewTimer) clearInterval(reviewTimer);
+    reviewTimer = setInterval(() => {
+      reviewIndex = (reviewIndex + 1) % slides.length;
+      showReview(reviewIndex);
+    }, 6000);
   }
   if (slides.length) {
     showReview(0);
+    startReviewAuto();
     prevBtn?.addEventListener('click', () => {
       reviewIndex = (reviewIndex - 1 + slides.length) % slides.length;
       showReview(reviewIndex);
+      startReviewAuto();
     });
     nextBtn?.addEventListener('click', () => {
       reviewIndex = (reviewIndex + 1) % slides.length;
       showReview(reviewIndex);
+      startReviewAuto();
     });
+
+    // pause auto on hover (desktop)
+    const reviewContainer = document.querySelector('#reviews');
+    if (reviewContainer) {
+      reviewContainer.addEventListener('mouseenter', () => clearInterval(reviewTimer));
+      reviewContainer.addEventListener('mouseleave', () => startReviewAuto());
+    }
   }
 
-  // Contact modal trigger
+  // ---------- contact modal + AJAX form ----------
   const contactModalEl = document.getElementById('contactModal');
   if (contactModalEl) {
     const contactModal = new bootstrap.Modal(contactModalEl);
     document.getElementById('openContactModal')?.addEventListener('click', () => contactModal.show());
   }
 
-  // AJAX contact form (Formspree)
   const ajaxForm = document.getElementById('ajaxContactForm');
   if (ajaxForm) {
     ajaxForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const resultEl = document.getElementById('cf-result');
-      resultEl.textContent = 'Sending...';
-
+      if (resultEl) { resultEl.textContent = 'Sending...'; }
       fetch(ajaxForm.action, {
         method: 'POST',
         body: new FormData(ajaxForm),
-        headers: { 'Accept': 'application/json' },
+        headers: { 'Accept': 'application/json' }
       }).then(res => {
         if (res.ok) {
           resultEl.innerHTML = '<div class="alert alert-success">Thank you — your message has been sent.</div>';
@@ -100,10 +139,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Collapse mobile navbar on link click
+  // ---------- collapse mobile nav on link click ----------
   document.querySelectorAll('#navbarMenu .nav-link').forEach(a => {
     a.addEventListener('click', () => {
-      const bsCollapse = bootstrap.Collapse.getInstance(document.getElementById('navbarMenu'));
+      const collapseEl = document.getElementById('navbarMenu');
+      const bsCollapse = bootstrap.Collapse.getInstance(collapseEl);
       if (bsCollapse) bsCollapse.hide();
     });
   });
