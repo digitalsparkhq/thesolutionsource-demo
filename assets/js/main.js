@@ -47,36 +47,13 @@ document.addEventListener('DOMContentLoaded', function () {
     revealItems.forEach(el => observer.observe(el));
   }
 
-// Flip for desktop
+// reflection flip
 document.querySelectorAll('.flip-btn').forEach(btn => {
-  btn.addEventListener('click', e => {
+  btn.addEventListener('click', function (e) {
     e.preventDefault();
-    const card = btn.closest('.reflection-card');
+    const card = this.closest('.reflection-card');
     if (!card) return;
-
-    if (window.innerWidth > 991) {
-      card.classList.add('flipped');
-    } else {
-      // mobile toggle visibility
-      card.classList.remove('front-visible');
-      card.classList.add('back-visible');
-    }
-  });
-});
-
-document.querySelectorAll('.back-btn').forEach(btn => {
-  btn.addEventListener('click', e => {
-    e.preventDefault();
-    const card = btn.closest('.reflection-card');
-    if (!card) return;
-
-    if (window.innerWidth > 991) {
-      card.classList.remove('flipped');
-    } else {
-      // mobile toggle visibility
-      card.classList.remove('back-visible');
-      card.classList.add('front-visible');
-    }
+    card.classList.toggle('flipped');
   });
 });
 
