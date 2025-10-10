@@ -57,26 +57,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ---------- Mobile overlay nav ----------
-  const mobileToggler = document.getElementById('mobileMenuToggler');
-  const mobileOverlay = document.getElementById('mobileNavOverlay');
+// ---------- Mobile overlay nav ----------
+const mobileToggler = document.getElementById('mobileMenuToggler');
+const mobileOverlay = document.getElementById('mobileNavOverlay');
 
-  if (mobileToggler && mobileOverlay) {
-    mobileToggler.addEventListener('click', () => {
-      const isOpen = mobileOverlay.classList.toggle('open');
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+if (mobileToggler && mobileOverlay) {
+  mobileToggler.addEventListener('click', () => {
+    const isOpen = mobileOverlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? 'hidden' : ''; // prevent background scroll
+  });
+
+  // Close overlay when clicking a link
+  mobileOverlay.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileOverlay.classList.remove('open');
+      document.body.style.overflow = '';
     });
-
-    // Close menu when clicking a link
-    mobileOverlay.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileOverlay.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    });
-  }
-
+  });
+}
+  
   // ------- Robust Reviews Slider -------
   (function () {
     const slides = Array.from(document.querySelectorAll(".review-slide"));
