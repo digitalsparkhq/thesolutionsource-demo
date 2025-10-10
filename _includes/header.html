@@ -45,7 +45,9 @@
       <ul class="navbar-nav align-items-center">
         {% for item in site.data.navigation %}
         <li class="nav-item px-2">
-          <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          <a class="nav-link {% if page.url == item.url or page.url == item.url | append: "/" %}current{% endif %}" href="{{ item.url | relative_url }}">
+            {{ item.title }}
+          </a>
         </li>
         {% endfor %}
       </ul>
@@ -66,14 +68,18 @@
 
   <!-- Mobile overlay menu -->
   <div id="mobileNavOverlay" class="mobile-nav-overlay">
-    <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
     <ul class="navbar-nav flex-column text-start py-4 px-3">
       {% for item in site.data.navigation %}
       <li class="nav-item">
-        <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        <a class="nav-link {% if page.url == item.url or page.url == item.url | append: "/" %}current{% endif %}" href="{{ item.url | relative_url }}">
+          {{ item.title }}
+        </a>
       </li>
       {% endfor %}
     </ul>
+
+    <!-- Close button at bottom -->
+    <button class="close-btn" aria-label="Close menu">&times; Close</button>
   </div>
 </nav>
 
