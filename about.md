@@ -9,7 +9,7 @@ hero_height: hero-sm
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-5 mb-4 mb-md-0">
-        <img src="{{ '/assets/images/hero-about.jpg' | relative_url }}" alt="Founder" class="img-fluid rounded">
+        <img src="{{ '/assets/images/founder.jpg' | relative_url }}" alt="Founder" class="img-fluid rounded">
       </div>
       <div class="col-md-7">
         <h2>About The Solution Source</h2>
