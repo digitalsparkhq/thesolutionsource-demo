@@ -1,8 +1,7 @@
-<!-- _includes/header.html -->
+<!-- Topbar -->
 <nav id="topbar" class="topbar d-flex align-items-center">
   <div class="container d-flex justify-content-between align-items-center py-2">
     <div class="topbar-left d-flex align-items-center">
-      <!-- Logo as text with heavenly background -->
       <div class="logo-text p-2 rounded" aria-label="{{ site.title }}">
         <a href="{{ '/' | relative_url }}" class="logo-link text-decoration-none">
           <span class="logo-name">{{ site.title }}</span>
@@ -11,7 +10,7 @@
     </div>
 
     <div class="topbar-right d-flex align-items-center">
-      <!-- Email + icon (hide text on mobile) -->
+      <!-- Email -->
       <div class="top-email d-none d-md-flex align-items-center me-3">
         <i class="bi bi-envelope-fill me-1" aria-hidden="true"></i>
         <a href="mailto:{{ site.email }}" class="text-decoration-none">{{ site.email }}</a>
@@ -34,13 +33,13 @@
 
 <!-- Main navbar -->
 <nav id="mainNav" class="navbar navbar-expand-lg navbar-sticky">
-  <div class="container d-flex align-items-center">
-    <!-- Mobile: toggler left -->
-    <button class="navbar-toggler me-2 d-lg-none" type="button" id="mobileMenuToggler">
+  <div class="container d-flex align-items-center justify-content-between">
+    <!-- Mobile: toggler -->
+    <button class="navbar-toggler d-lg-none" type="button" id="mobileMenuToggler" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Desktop nav menu: left-aligned -->
+    <!-- Desktop nav menu -->
     <div class="d-none d-lg-flex">
       <ul class="navbar-nav align-items-center">
         {% for item in site.data.navigation %}
@@ -63,8 +62,9 @@
       </div>
     </div>
   </div>
+</nav>
 
-<!-- Mobile overlay menu -->
+<!-- Mobile overlay menu (outside nav container) -->
 <div id="mobileNavOverlay" class="mobile-nav-overlay">
   <ul class="navbar-nav flex-column text-start py-4 px-3">
     {% for item in site.data.navigation %}
