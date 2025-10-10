@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const topbar = document.getElementById('topbar');
   const mainNav = document.getElementById('mainNav');
-  const navLinks = document.querySelectorAll('#mainNav .nav-link'); // updated selector
+  const navLinks = document.querySelectorAll('#mainNav .nav-link');
   let lastScroll = 0;
 
   // ---------- topbar hide on scroll and navbar pull-up ----------
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     revealItems.forEach(el => observer.observe(el));
   }
 
-  // ---------- reflection flip buttons (Flip To Continue + Back) ----------
+  // ---------- reflection flip buttons ----------
   document.querySelectorAll('.flip-btn, .back-btn').forEach(btn => {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -60,18 +60,24 @@ document.addEventListener('DOMContentLoaded', function () {
   // ---------- Mobile overlay nav ----------
   const mobileToggler = document.getElementById('mobileMenuToggler');
   const mobileOverlay = document.getElementById('mobileNavOverlay');
+
   if (mobileToggler && mobileOverlay) {
     mobileToggler.addEventListener('click', () => {
-      mobileOverlay.classList.toggle('show');
+      const isOpen = mobileOverlay.classList.toggle('open');
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
+
+    // Close menu when clicking a link
     mobileOverlay.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        mobileOverlay.classList.remove('show');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
       });
     });
   }
 
-  // ------- Robust Reviews Slider (unchanged) -------
+  // ------- Robust Reviews Slider -------
   (function () {
     const slides = Array.from(document.querySelectorAll(".review-slide"));
     const nextBtn = document.getElementById("reviewNext");
