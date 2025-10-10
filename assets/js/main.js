@@ -1,104 +1,128 @@
-// assets/js/main.js
 document.addEventListener('DOMContentLoaded', function () {
-  // elements
   const topbar = document.getElementById('topbar');
   const mainNav = document.getElementById('mainNav');
-  const hero = document.getElementById('hero');
   const navLinks = document.querySelectorAll('#navbarMenu .nav-link');
-  const callBox = document.querySelector('.call-box');
   let lastScroll = 0;
 
-  // topbar hide on scroll, navbar sticky behavior
-  function onScroll() {
+  // ---------- topbar hide on scroll and navbar pull-up ----------
+  const SCROLL_TRIGGER = 80;
+  function handleScroll() {
     const st = window.scrollY || window.pageYOffset;
-    if (st > 80) {
-      topbar.classList.add('hidden');
-      mainNav.classList.add('scrolled');
-    } else {
-      topbar.classList.remove('hidden');
-      mainNav.classList.remove('scrolled');
+    if (topbar) {
+      if (st > SCROLL_TRIGGER) topbar.classList.add('hidden');
+      else topbar.classList.remove('hidden');
     }
+    if (mainNav) mainNav.classList.toggle('scrolled', st > SCROLL_TRIGGER);
     lastScroll = st;
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 
-  // nav active link highlight (simple)
+  // ---------- active nav link highlight while scrolling ----------
   function updateActiveLink() {
-    const scrollPos = window.scrollY + 140;
+    const scrollPos = window.scrollY + (window.innerHeight * 0.18) + 80;
     document.querySelectorAll('section[id]').forEach(section => {
-      if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
-        const id = '#' + section.id;
-        navLinks.forEach(a => {
-          if (a.getAttribute('href') === id || a.getAttribute('href') === id + '/') {
-            a.classList.add('current');
-          } else {
-            a.classList.remove('current');
-          }
-        });
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      const id = '#' + section.id;
+      if (scrollPos >= top && scrollPos < bottom) {
+        navLinks.forEach(a => a.classList.toggle('current', a.getAttribute('href') === id || a.getAttribute('href') === id + '/'));
       }
     });
   }
   window.addEventListener('scroll', updateActiveLink);
   updateActiveLink();
 
-  // reveal on scroll for elements with .reveal-on-scroll
+  // ---------- reveal on scroll (IntersectionObserver) ----------
   const revealItems = document.querySelectorAll('.reveal-on-scroll, .service-card');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.18 });
-  revealItems.forEach(it => observer.observe(it));
+  if (revealItems.length) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    revealItems.forEach(el => observer.observe(el));
+  }
 
-  // reflection flip card - also support touch toggle
-  document.querySelectorAll('.reflection-card').forEach(card => {
-    card.addEventListener('click', function () {
-      this.classList.toggle('flip');
+  // ---------- reflection flip on Read More button (click) ----------
+  document.querySelectorAll('.flip-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const card = this.closest('.reflection-card');
+      if (!card) return;
+      // toggle 'flipped' class (CSS handles 3d)
+      card.classList.toggle('flipped');
+      // on small devices we avoid 3d transform (CSS handles that)
     });
   });
 
-  // Reviews carousel (simple)
-  let reviewIndex = 0;
-  const slides = document.querySelectorAll('.review-slide');
+  // ---------- reviews carousel with arrows + auto-advance ----------
+  const slides = Array.from(document.querySelectorAll('.review-slide'));
   const prevBtn = document.getElementById('reviewPrev');
   const nextBtn = document.getElementById('reviewNext');
+  let reviewIndex = 0;
+  let reviewTimer = null;
 
-  function showReview(idx) {
-    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  function showReview(i) {
+    slides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === i);
+    });
+  }
+  function startReviewAuto() {
+    if (reviewTimer) clearInterval(reviewTimer);
+    reviewTimer = setInterval(() => {
+      reviewIndex = (reviewIndex + 1) % slides.length;
+      showReview(reviewIndex);
+    }, 6000);
   }
   if (slides.length) {
     showReview(0);
-    if (prevBtn) prevBtn.addEventListener('click', () => { reviewIndex = (reviewIndex - 1 + slides.length) % slides.length; showReview(reviewIndex); });
-    if (nextBtn) nextBtn.addEventListener('click', () => { reviewIndex = (reviewIndex + 1) % slides.length; showReview(reviewIndex); });
+    startReviewAuto();
+    prevBtn?.addEventListener('click', () => {
+      reviewIndex = (reviewIndex - 1 + slides.length) % slides.length;
+      showReview(reviewIndex);
+      startReviewAuto();
+    });
+    nextBtn?.addEventListener('click', () => {
+      reviewIndex = (reviewIndex + 1) % slides.length;
+      showReview(reviewIndex);
+      startReviewAuto();
+    });
+
+    // pause auto on hover (desktop)
+    const reviewContainer = document.querySelector('#reviews');
+    if (reviewContainer) {
+      reviewContainer.addEventListener('mouseenter', () => clearInterval(reviewTimer));
+      reviewContainer.addEventListener('mouseleave', () => startReviewAuto());
+    }
   }
 
-  // Open contact modal from hero button
-  const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
-  document.getElementById('openContactModal')?.addEventListener('click', () => contactModal.show());
+  // ---------- contact modal + AJAX form ----------
+  const contactModalEl = document.getElementById('contactModal');
+  if (contactModalEl) {
+    const contactModal = new bootstrap.Modal(contactModalEl);
+    document.getElementById('openContactModal')?.addEventListener('click', () => contactModal.show());
+  }
 
-  // AJAX contact form submission (Formspree)
   const ajaxForm = document.getElementById('ajaxContactForm');
   if (ajaxForm) {
     ajaxForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      const formData = new FormData(ajaxForm);
       const resultEl = document.getElementById('cf-result');
-      resultEl.textContent = 'Sending...';
-
+      if (resultEl) { resultEl.textContent = 'Sending...'; }
       fetch(ajaxForm.action, {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' },
-      }).then(response => response.json()).then(data => {
-        if (data.ok || data.success || response?.status === 200) {
+        body: new FormData(ajaxForm),
+        headers: { 'Accept': 'application/json' }
+      }).then(res => {
+        if (res.ok) {
           resultEl.innerHTML = '<div class="alert alert-success">Thank you — your message has been sent.</div>';
           ajaxForm.reset();
         } else {
-          resultEl.innerHTML = '<div class="alert alert-danger">Sorry, an error occurred. Please try again later.</div>';
+          resultEl.innerHTML = '<div class="alert alert-danger">An error occurred. Please try again later.</div>';
         }
       }).catch(() => {
         resultEl.innerHTML = '<div class="alert alert-danger">Network error. Please try again later.</div>';
@@ -106,10 +130,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // collapse mobile navbar on link click
+  // ---------- collapse mobile nav on link click ----------
   document.querySelectorAll('#navbarMenu .nav-link').forEach(a => {
     a.addEventListener('click', () => {
-      const bsCollapse = bootstrap.Collapse.getInstance(document.getElementById('navbarMenu'));
+      const collapseEl = document.getElementById('navbarMenu');
+      const bsCollapse = bootstrap.Collapse.getInstance(collapseEl);
       if (bsCollapse) bsCollapse.hide();
     });
   });
