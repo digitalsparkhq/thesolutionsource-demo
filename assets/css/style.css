@@ -159,6 +159,21 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
 }
 .mobile-nav-overlay .nav-link:hover { color: var(--primary); }
 
+.mobile-nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: black;
+  cursor: pointer;
+}
+
+.mobile-nav-close:hover {
+  color: rgb(69, 137, 204);
+}
+
 /* ---------- Section heading style (centered underline across middle) ---------- */
 .section-title {
   display: inline-block;
