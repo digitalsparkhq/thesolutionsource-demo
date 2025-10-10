@@ -3,11 +3,11 @@
   <div class="container d-flex justify-content-between align-items-center py-2">
     <div class="topbar-left d-flex align-items-center">
       <!-- Logo as text with heavenly background -->
-      <div class="logo-text p-2 rounded" aria-label="{{ site.title }}">
-      <a class="navbar-brand me-3 d-none d-lg-inline" href="{{ '/' | relative_url }}">
-        <span class="logo-text">{{ site.title }}</span>
+      <a href="{{ '/' | relative_url }}" class="logo-link text-decoration-none">
+        <div class="logo-text p-2 rounded" aria-label="{{ site.title }}">
+          <span class="logo-name">{{ site.title }}</span>
+        </div>
       </a>
-      </div>
     </div>
 
     <div class="topbar-right d-flex align-items-center">
