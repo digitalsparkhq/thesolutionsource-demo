@@ -73,8 +73,8 @@
   </div> <!-- container -->
 </nav>
 
-<!-- Mobile overlay menu -->
-<div id="mobileNavOverlay" class="mobile-nav-overlay">
+<!-- Mobile overlay menu (hidden on desktop) -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay d-lg-none">
   <ul class="navbar-nav flex-column text-start">
     {% for item in site.data.navigation %}
     <li class="nav-item">
