@@ -1,5 +1,3 @@
-new home page:
-
 ---
 layout: default
 title: "The Solution Source"
