@@ -12,7 +12,7 @@ hero_height: hero-sm
         <img src="{{ '/assets/images/founder.jpg' | relative_url }}" alt="Founder" class="img-fluid rounded">
       </div>
       <div class="col-md-7">
-        <h2>About The Solution Source</h2>
+        <h2 class="section-title text-center">About The Solution Source</h2>
         <p>Based in Greensboro, North Carolina, The Solution Source exists to help individuals live out their God-given calling in every sphere of life. Founded by a faith-driven leader passionate about personal and professional transformation, we equip people to discern identity, purpose, and strengths — then activate them meaningfully.</p>
       </div>
     </div>
@@ -21,7 +21,7 @@ hero_height: hero-sm
 
 <section class="py-5 bg-light">
   <div class="container text-center">
-    <h2>Our Mission & Vision</h2>
+    <h2 class="section-title text-center">Our Mission & Vision</h2>
     <div class="row mt-4">
       <div class="col-md-6 mb-4">
         <h5>Mission</h5>
@@ -37,7 +37,7 @@ hero_height: hero-sm
 
 <section class="py-5">
   <div class="container text-center">
-    <h2>Our Core Values</h2>
+    <h2 class="section-title text-center">Our Core Values</h2>
     <div class="row mt-4">
       <div class="col-md-3"><h6>Faith</h6></div>
       <div class="col-md-3"><h6>Integrity</h6></div>
