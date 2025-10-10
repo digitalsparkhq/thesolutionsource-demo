@@ -207,7 +207,7 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
 /* reflection card container */
 .reflection-card {
   perspective: 1200px;
-  height: 420px;
+  height: 40vh;
   display: flex;
   align-items: stretch;
   overflow: hidden; /* contain any 3D overflow */
