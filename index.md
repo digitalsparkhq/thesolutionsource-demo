@@ -10,7 +10,7 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-6 mb-4 mb-md-0">
-        <img src="{{ '/assets/images/section-bg.jpg' | relative_url }}" alt="Purpose" class="img-fluid rounded">
+        <img src="{{ '/assets/images/mission-bg.jpg' | relative_url }}" alt="Purpose" class="img-fluid rounded">
       </div>
       <div class="col-md-6">
         <h2>Helping You Align Purpose and Profession</h2>
@@ -31,14 +31,12 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
           <p>We guide you through practical discovery practices designed to surface strengths, values, and vocational callings. This is not a generic quiz — it's a guided, prayerful exploration designed to give you clarity that lasts. You'll leave with an actionable plan and confidence to take next steps.</p>
         </div>
       </div>
-
       <div class="col-md-4">
         <div class="service-card reveal-on-scroll">
           <h5>Leadership Coaching</h5>
           <p>Leadership formed by Christ-centered values produces healthier teams and more faithful decisions. Our coaching focuses on wise leadership rhythms, boundary setting, and developing people — helping you lead with courage and humility in complex environments.</p>
         </div>
       </div>
-
       <div class="col-md-4">
         <div class="service-card reveal-on-scroll">
           <h5>Faith & Work Alignment</h5>
