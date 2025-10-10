@@ -63,8 +63,8 @@ const mobileOverlay = document.getElementById('mobileNavOverlay');
 
 if (mobileToggler && mobileOverlay) {
   mobileToggler.addEventListener('click', () => {
-    const isOpen = mobileOverlay.classList.toggle('open');
-    document.body.style.overflow = isOpen ? 'hidden' : ''; // prevent background scroll
+    mobileOverlay.classList.toggle('open');
+    document.body.style.overflow = mobileOverlay.classList.contains('open') ? 'hidden' : '';
   });
 
   // Close overlay when clicking a link
