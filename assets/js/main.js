@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-// ------- Robust Reviews Slider (replace older slider block) -------
 // ------- Robust Reviews Slider (updated) -------
 (function () {
   const slides = Array.from(document.querySelectorAll(".review-slide"));
