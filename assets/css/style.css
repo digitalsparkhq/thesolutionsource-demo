@@ -144,13 +144,12 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 1060;
-  padding: 4rem 1.5rem 2rem 1.5rem;
+  padding: 4rem 1.5rem 5rem 1.5rem; /* extra bottom padding for close btn space */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* ✅ ensures items stretch from top to bottom */
+  overflow-y: auto; /* ✅ scrollable if content exceeds screen */
 }
 
-/* make open state visible */
 .mobile-nav-overlay.open {
   transform: translateY(0);
   opacity: 1;
@@ -161,26 +160,31 @@ section { scroll-margin-top: calc(var(--topbar-height) + 56px); }
   color: #222;
   font-weight: 600;
   padding: 0.8rem 0;
+  transition: color 0.2s ease;
 }
 .mobile-nav-overlay .nav-link:hover {
   color: var(--primary);
 }
 
-/* ✅ new: close button styling */
+/* ✅ close button fixed neatly near bottom */
 .mobile-nav-overlay .close-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1.4rem;
   font-weight: 600;
-  align-self: center;
-  margin-top: 1rem;
+  z-index: 1070;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .mobile-nav-overlay .close-btn:hover {
   background: #357ac9;
-  transform: translateY(-2px);
+  transform: translate(-50%, -3px);
 }
 
 /* ---------- Section heading style (centered underline across middle) ---------- */
