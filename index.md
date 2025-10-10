@@ -101,7 +101,7 @@ subtitle: "Cultivating Your Calling — aligning identity, purpose and professio
 
     <div class="d-flex align-items-center justify-content-between mb-3 position-relative overflow-hidden" style="min-height:220px;">
       <div id="reviewPrev" class="review-arrow"><i class="bi bi-chevron-left"></i></div>
-      <div class="flex-grow-1 px-3 position-relative">
+      <div class="flex-grow-1 px-3 position-relative review-container">
         <div class="review-slide active">
           <h5 class="text-white">Anna</h5>
           <div class="review-stars">★★★★★</div>
